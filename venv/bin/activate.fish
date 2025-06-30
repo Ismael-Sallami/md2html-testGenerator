@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV /home/ismael-sallami/Escritorio/GitHub/md2html/venv
+set -gx VIRTUAL_ENV /home/ismael-sallami/Escritorio/GitHub/md2html_REPO/md2html/venv
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/"bin $PATH

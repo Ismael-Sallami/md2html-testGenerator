@@ -23,6 +23,12 @@ Su funcionamiento es muy simple, ya que esta diseñado para que el usuario no te
       sudo apt update
       sudo apt install python3 python3-pip
       ```
+      o bien:
+      ```bash
+      sudo apt update
+      sudo apt install python3-full
+      ```
+
     - **Windows:**  
       Descárgalo desde [python.org](https://www.python.org/downloads/)
 
@@ -191,6 +197,18 @@ Clonamos el repositorio:
 ```bash
 git clone https://github.com/Ismael-Sallami/md2html.git
 ```
+
+Podemos optar por borrar el anterior entorno virtual y crear uno instalando el módulo de Markdown (opción recomendada):
+
+```bash
+rm -rf venv
+python3 -m venv venv
+source venv/bin/activate
+pip install markdown
+```
+
+Si usamos el del repositorio:
+
 Activamos el entorno de python:
 ```bash
 source venv/bin/activate 
@@ -208,7 +226,7 @@ Se abrirá una interfaz gráfica donde debemos de seleccionar:
 
 Se incluye un video de como hacerlo:
 
-[Ver video de instrucciones, es necesario descargar al pinchar aquí](readmeFiles/indicaciones.mp4).
+[Ver video de instrucciones, es necesario descargar al pinchar aquí (debe de darle a los 3 puntos y descargar)](readmeFiles/indicaciones.mp4).
 
 ## Plantillas
 
@@ -228,6 +246,7 @@ Aquí se pude ver imágenes de las previsualizaciones (en la carpeta `/plantilla
 - Debemos de tener mucho cuidado con la sintaxis.
 - Si al colgar un vídeo la pregunta es muy grande, el tamaño el video disminuye.
 - Si se necesita más plantillas o algo por el estilo se aconseja contactar conmigo mandando un correo [aquí](https://elblogdeismael.github.io/htmlFiles/contact.html). 
+- Da igual las enumeraciones, el script las enumera luego de manera ascendente (1,2,3,...).
 
 ---
 

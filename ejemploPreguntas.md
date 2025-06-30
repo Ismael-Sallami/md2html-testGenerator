@@ -86,3 +86,21 @@
 - ( ) Está vacío
 
 
+5. Observa la siguiente imagen y tabla:
+
+![Diagrama](images/ugr-rojo.png)
+
+| Protocolo | Capa OSI |
+|-----------|----------|
+| HTTP      | Aplicación |
+| TCP       | Transporte |
+
+¿Qué protocolo pertenece a la capa de red?
+
+- ( ) HTTP
+- ( ) TCP
+- (x) IP
+- ( ) DNS
+
+
+
