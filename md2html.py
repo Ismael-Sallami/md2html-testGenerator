@@ -95,7 +95,10 @@ md_content = re.sub(r'<!--.*?-->', '', md_content, flags=re.DOTALL)
 #pattern = re.compile(r'(\d+)\.\s*(.*?)((?:\n\s*-\s*\((x|\s|\(\))\)\s*.*?)+)(?=\n\d+\.|\Z)', re.DOTALL)
 #option_pattern = re.compile(r'-\s*\((x|\s|\(\))\)\s*(.*?)(?=\n-\s*\(|\n\d+\.|\Z)', re.DOTALL)
 #pattern = re.compile(r'(\d+)\.\s*(.*?)(?=(?:\n\s*-\s*\(.*?\))|\Z)', re.DOTALL)
-pattern = re.compile(r'(\d+)\.\s*((?:(?!\n\d+\.).)*?)(?=(?:\n\s*-\s*\(.*?\))|\n\d+\.|\Z)', re.DOTALL)
+pattern = re.compile(
+    r'(?m)^(\d+)\.\s+(.*?)\n(?=(-?\s*\((x|\s|\(\))\)))',
+    re.DOTALL
+)
 option_pattern = re.compile(r'-\s*\((x|\s|\(\))\)\s*(.*?)(?=\n\s*-\s*\(|\n\d+\.|\Z)', re.DOTALL)
 
 
@@ -103,7 +106,8 @@ questions_data = []
 matches = list(pattern.finditer(md_content))
 
 for i, match in enumerate(matches):
-    question_number, question_text = match.groups()
+    # question_number, question_text = match.groups()
+    question_number, question_text, *_ = match.groups()
 
     start_pos = match.end()
     end_pos = matches[i + 1].start() if i + 1 < len(matches) else len(md_content)
