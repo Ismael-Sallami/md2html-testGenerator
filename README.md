@@ -179,9 +179,9 @@ $$ \frac{3}{4} $$
 
 > Para aquellos que quieran familiarizarse más en profundidad con este lengauaje puede acceder a esta [guía](https://markdown.es/).
 
-
-*En resumen, podemos crear un cuestionario con imágenes, videos, texto, audio, tablas, fórmulas. Bastante completo la verdad.*
-
+---
+|En resumen, podemos crear un cuestionario con imágenes, videos, texto, audio, tablas, fórmulas. Bastante completo la verdad. |
+---
 
 ## Ejecución
 
