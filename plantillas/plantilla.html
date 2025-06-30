@@ -298,6 +298,32 @@
         overflow-x: auto;
       }
 
+      .opcion-linea {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5em;
+        line-height: 1.4;
+        padding: 0.3em 0;
+      }
+      
+      .opcion-linea input[type="checkbox"] {
+        margin-top: 0.2em;
+      }
+      
+      @media (max-width: 600px) {
+        .opcion-linea {
+          flex-direction: row;
+          align-items: flex-start;
+          flex-wrap: wrap;
+          word-break: break-word;
+        }
+      
+        .opcion-linea input[type="checkbox"] {
+          flex-shrink: 0;
+        }
+      }
+      
+
       
       
     </style>
