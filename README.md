@@ -222,7 +222,7 @@ Se abrirá una interfaz gráfica donde debemos de seleccionar:
 1. Las preguntas en formato md.
 2. La plantilla html.
 3. Donde guardarlo y asignarle un nombre.
-4. *Opcional* Podemos añadir una lista como parte de 'cosas a tener en cuenta', para ello cuando se nos haga la pregunta por parte del programa si queremos dicha lista tecleamos `s` y a continuación el nombre o ruta de la lista (debe de ser en formato txt), si no la queremos basta con introducir `n` cuando se nos haga la pregunta.
+4. *Opcional* Podemos añadir una lista como parte de 'cosas a tener en cuenta', para ello cuando se nos haga la pregunta por parte del programa si queremos dicha lista tecleamos `s` y a continuación el nombre o ruta de la lista (debe de ser en formato md, de manera que se interpreta el lenguaje reconociendo cursivas,...), si no la queremos basta con introducir `n` cuando se nos haga la pregunta.
 
 Se incluye un video de como hacerlo:
 
@@ -247,6 +247,7 @@ Aquí se pude ver imágenes de las previsualizaciones (en la carpeta `/plantilla
 - Si al colgar un vídeo la pregunta es muy grande, el tamaño el video disminuye.
 - Si se necesita más plantillas o algo por el estilo se aconseja contactar conmigo mandando un correo [aquí](https://elblogdeismael.github.io/htmlFiles/contact.html). 
 - Da igual las enumeraciones, el script las enumera luego de manera ascendente (1,2,3,...).
+- Cuando se genera el test se aleatorizan las preguntas, añadiendo un extra de dificultad.
 
 ---
 

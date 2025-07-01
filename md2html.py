@@ -207,13 +207,17 @@ html_lista = ''
 incluir_lista = input("¿Deseas incluir una lista explicativa desde un archivo externo? (s/n): ").strip().lower()
 
 if incluir_lista == 's':
-    lista_file = input("Introduce el nombre del archivo de texto con la lista (una línea por elemento): ").strip()
+    # lista_file = input("Introduce el nombre del archivo de texto con la lista (una línea por elemento): ").strip()
+    lista_file = input("Introduce el nombre del archivo Markdown con la lista explicativa (por ejemplo, info.md): ").strip()
     if not os.path.isfile(lista_file):
         print(f"El archivo '{lista_file}' no existe. No se incluirá ninguna lista.")
     else:
         with open(lista_file, 'r', encoding='utf-8') as f:
-            lineas = [line.strip() for line in f if line.strip()]
-        html_lista = "<ul>\n" + "\n".join(f"<li>{html.escape(line)}</li>" for line in lineas) + "\n</ul>"
+            lista_md = f.read()
+    html_lista = markdown.markdown(lista_md, extensions=['extra', 'tables', 'fenced_code'])
+
+        # lineas = [line.strip() for line in f if line.strip()]
+    # html_lista = "<ul>\n" + "\n".join(f"<li>{html.escape(line)}</li>" for line in lineas) + "\n</ul>"
 
 # ========= LECTURA PLANTILLA HTML =========
 with open(template_html, 'r', encoding='utf-8') as f:

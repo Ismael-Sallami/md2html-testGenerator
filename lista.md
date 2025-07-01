@@ -1,0 +1,8 @@
+- Estos tests están diseñados para ayudar a repasar y autoevaluar los conocimientos adquiridos en la asignatura.
+- Permiten identificar áreas de mejora antes de los exámenes oficiales.
+- Facilitan la práctica activa y la comprobación inmediata de respuestas correctas.
+- Proceden de diversas fuentes, por lo que pueden ser candidatas a errores, por lo que si se detecta alguno, se agradecerá su notificación.
+- El test se puede desordenar y mostrar las respuestas correctas.
+- Puede haber preguntas con más de una respuesta correcta, que se marcan en amarillo (parcialmente correctas).
+- Se deja libertad en cuanto al número de preguntas correctas, de esta manera se asegura de que el usuario sabe cuantas son correctas.
+- Han sido diseñados mediante la herramiente de [md2html-testGenerator](https://github.com/Ismael-Sallami/md2html) por parte de [Ismael Sallami](https://ismael-sallami.github.io/).
