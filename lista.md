@@ -1,8 +1,9 @@
-- Estos tests están diseñados para ayudar a repasar y autoevaluar los conocimientos adquiridos en la asignatura.
-- Permiten identificar áreas de mejora antes de los exámenes oficiales.
-- Facilitan la práctica activa y la comprobación inmediata de respuestas correctas.
-- Proceden de diversas fuentes, por lo que pueden ser candidatas a errores, por lo que si se detecta alguno, se agradecerá su notificación.
-- El test se puede desordenar y mostrar las respuestas correctas.
-- Puede haber preguntas con más de una respuesta correcta, que se marcan en amarillo (parcialmente correctas).
-- Se deja libertad en cuanto al número de preguntas correctas, de esta manera se asegura de que el usuario sabe cuantas son correctas.
-- Han sido diseñados mediante la herramiente de [md2html-testGenerator](https://github.com/Ismael-Sallami/md2html) por parte de [Ismael Sallami](https://ismael-sallami.github.io/).
+- Estos tests están diseñados para repasar y autoevaluar los conocimientos adquiridos en la asignatura.
+- Ayudan a identificar áreas de mejora antes de los exámenes oficiales.
+- Fomentan la práctica activa y permiten comprobar de forma inmediata las respuestas correctas.
+- Proceden de diversas fuentes, por lo que podrían contener errores. Si detectas alguno, se agradecerá su notificación a través de [este enlace](https://elblogdeismael.github.io/htmlFiles/contact.html).
+- El test puede desordenarse, mostrar respuestas correctas y ofrece otras funciones útiles que se recomienda explorar.
+- Algunas preguntas pueden tener más de una respuesta correcta, marcadas en amarillo (parcialmente correctas).
+- No hay un número fijo de respuestas correctas por pregunta; esto obliga al usuario a conocer cuántas son realmente válidas.
+- Han sido generados con la herramienta [md2html-testGenerator](https://github.com/Ismael-Sallami/md2html), desarrollada por [Ismael Sallami](https://ismael-sallami.github.io/).
+- Se recomienda acceder en modo escritorio para una mejor experiencia. En móviles, la interfaz se adapta mostrando las respuestas debajo de cada casilla para facilitar su uso.

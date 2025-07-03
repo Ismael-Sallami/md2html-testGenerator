@@ -179,6 +179,8 @@ Viendo el ejemplo tenemos que:
 ```md
 $$ \frac{3}{4} $$
 ```
+  - Otra manera de poner fórmulas, ya sea en línea o en bloque, es mediante la sintaxis `\\(fórmula\\)`, donde *fórmula* debe de aparecer en lenguaje LaTeX.
+
 > Para ello debemos de tener conocimiento en LaTeX, podemos acceder al enlace del [manual de LaTeX](https://manualdelatex.com/tutoriales/ecuaciones) para más información. *Importante usar las dos $$ en vez de $*.
 
 - Podemos poner tablas siguiendo la sintaxis de Markdown. 
@@ -248,6 +250,7 @@ Aquí se pude ver imágenes de las previsualizaciones (en la carpeta `/plantilla
 - Si se necesita más plantillas o algo por el estilo se aconseja contactar conmigo mandando un correo [aquí](https://elblogdeismael.github.io/htmlFiles/contact.html). 
 - Da igual las enumeraciones, el script las enumera luego de manera ascendente (1,2,3,...).
 - Cuando se genera el test se aleatorizan las preguntas, añadiendo un extra de dificultad.
+- En cuanto a la insercción de imágenes y demás, si ponemos el código como tal en html el propio programa lo reconocerá y lo pondrá como debe, de esta manera podemos asignar tamaño (Ej: `<br><img src="./images/imagen.png" alt="descripción" width="300">`)
 
 ---
 
