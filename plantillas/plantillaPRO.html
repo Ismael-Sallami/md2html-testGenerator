@@ -6,7 +6,6 @@
     <title>{{TITULO}}</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
     
@@ -16,6 +15,10 @@
           inlineMath: [['$', '$'], ['\\(', '\\)']],
           displayMath: [['$$', '$$'], ['\\[', '\\]']],
           processEscapes: true
+        },
+        options: {
+          ignoreHtmlClass: 'tex2jax_ignore',
+          processHtmlClass: 'tex2jax_process'
         }
       };
     </script>
@@ -23,21 +26,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
+      :root {
+        --bg-color: #f0f2f5;
+        --text-color: #333;
+        --card-bg: #fff;
+        --border-color: #ddd;
+        --primary-color: #007bff;
+        --hover-color: #0056b3;
+      }
+
       body {
         font-family: "Segoe UI", "Palatino Linotype", serif;
-        background-color: #f0f2f5;
-        color: #333;
+        background-color: var(--bg-color);
+        color: var(--text-color);
         line-height: 1.6;
         padding: 20px;
         font-size: 18px;
         max-width: 900px;
         margin: 0 auto;
       }
+
       h1 {
         text-align: center;
-        color: #007bff;
+        color: var(--primary-color);
         margin-bottom: 10px;
       }
+
       .author {
         text-align: center;
         margin-bottom: 20px;
@@ -46,16 +60,16 @@
         color: #666;
       }
       
-      /* Cajas de Preguntas */
+      /* --- CAJAS DE PREGUNTAS --- */
       .question {
-        background: #fff;
-        border: 1px solid #ddd;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
         border-radius: 8px;
         padding: 20px;
         margin-bottom: 25px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         transition: transform 0.2s, box-shadow 0.2s;
-        overflow-wrap: break-word;
+        overflow-wrap: break-word; /* Evita desbordamiento horizontal */
       }
       .question:hover {
         transform: translateY(-2px);
@@ -63,51 +77,51 @@
       }
 
       /* Estados de corrección */
-      .correct {
-        border-color: #28a745;
-        background-color: #d4edda;
-      }
-      .partial {
-        border-color: #ffc107;
-        background-color: #fff3cd;
-      }
-      .incorrect {
-        border-color: #dc3545;
-        background-color: #f8d7da;
-      }
+      .correct { border-color: #28a745; background-color: #d4edda; }
+      .partial { border-color: #ffc107; background-color: #fff3cd; }
+      .incorrect { border-color: #dc3545; background-color: #f8d7da; }
 
-      /* Elementos internos */
+      /* Enunciados */
       .enunciado { margin-bottom: 15px; }
       .enunciado-bloque { display: flex; gap: 10px; margin-bottom: 15px; }
       .enunciado-bloque .num { font-weight: bold; min-width: 25px; }
       
-      ol { padding-left: 20px; }
-      li { margin-bottom: 8px; list-style-type: lower-alpha; }
+      ol { padding-left: 0; list-style: none; }
+      li { margin-bottom: 10px; position: relative; }
       
-      /* Opciones */
-      .opcion-linea {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
+      /* --- SOLUCIÓN DE MAQUETACIÓN PARA MATHJAX --- */
+      /* Usamos display: block con padding en lugar de flexbox para evitar
+         que las fórmulas matemáticas se separen del texto */
+      
+      .opcion-linea, .opcion-bloque {
+        display: block;      /* Importante: NO usar flex */
+        padding-left: 35px;  /* Espacio para el checkbox */
+        position: relative;
         cursor: pointer;
+        min-height: 24px;    /* Altura mínima visual */
       }
-      .opcion-bloque {
-        display: block;
-        margin-left: 5px;
-      }
-      .opcion-bloque > div {
-        display: inline-block;
-        vertical-align: top;
-        margin-left: 8px;
-        max-width: 90%;
-      }
-      
-      input[type="checkbox"] {
+
+      /* Checkbox posicionado absolutamente a la izquierda */
+      .opcion-linea input[type="checkbox"], 
+      .opcion-bloque input[type="checkbox"] {
+        position: absolute;
+        left: 0;
+        top: 2px;  /* Ajuste fino para alinear con la primera línea de texto */
         transform: scale(1.3);
-        margin-right: 8px;
+        margin: 0;
         cursor: pointer;
       }
 
+      /* Asegura que el texto y las fórmulas fluyan juntos */
+      .opcion-linea label, .opcion-linea span, .opcion-bloque div {
+        display: inline; /* Hace que el texto fluya naturalmente */
+      }
+
+      /* Ajustes específicos para MathJax dentro de opciones */
+      mjx-container {
+        font-size: 110% !important; /* Ligeramente más grande para legibilidad */
+      }
+      
       /* Imágenes y Tablas responsive */
       img { max-width: 100%; height: auto; border-radius: 4px; }
       table { border-collapse: collapse; width: 100%; margin: 10px 0; overflow-x: auto; display: block; }
@@ -116,15 +130,15 @@
 
       /* Botones y Panel Info */
       .info-box {
-        background: #fff;
-        border: 1px solid #ddd;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
         border-radius: 8px;
         padding: 20px;
         margin-bottom: 20px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
       button {
-        background-color: #007bff;
+        background-color: var(--primary-color);
         color: white;
         border: none;
         padding: 10px 15px;
@@ -134,7 +148,7 @@
         font-size: 14px;
         transition: background 0.3s;
       }
-      button:hover { background-color: #0056b3; }
+      button:hover { background-color: var(--hover-color); }
       .extra-buttons-grid {
         display: flex;
         flex-wrap: wrap;
@@ -142,19 +156,17 @@
         margin-top: 15px;
       }
 
-      /* Modo Oscuro */
+      /* --- MODO OSCURO --- */
       body.dark-mode {
-        background-color: #121212;
-        color: #e0e0e0;
-      }
-      .dark-mode .question, .dark-mode .info-box {
-        background-color: #1e1e1e;
-        border-color: #444;
+        --bg-color: #121212;
+        --text-color: #e0e0e0;
+        --card-bg: #1e1e1e;
+        --border-color: #444;
+        --primary-color: #374151;
+        --hover-color: #4b5563;
       }
       .dark-mode .author { color: #aaa; }
       .dark-mode th { background-color: #333; }
-      .dark-mode button { background-color: #374151; }
-      .dark-mode button:hover { background-color: #4b5563; }
       
       .dark-mode .correct { background-color: #064e3b !important; border-color: #059669; }
       .dark-mode .partial { background-color: #451a03 !important; border-color: #d97706; }
@@ -162,38 +174,10 @@
 
       /* Impresión */
       @media print {
-        body { background: white; color: black; max-width: 100%; }
+        body { background: white; color: black; max-width: 100%; padding: 0; }
         .question { page-break-inside: avoid; border: none; box-shadow: none; padding: 0; margin-bottom: 20px; }
         .info-box, button, #extra-buttons { display: none !important; }
-      }
-
-      /* Bloque de corrección para MathJax y Flexbox */
-
-      /* Evita que los símbolos se separen dentro de las etiquetas de opción */
-      .opcion-linea, .opcion-bloque {
-          display: flex !important; 
-          align-items: flex-start !important; /* Alinea al inicio para fórmulas altas */
-          gap: 10px;
-      }
-
-      /* Fuerza a MathJax a no dividirse ni heredar espacios del flexbox */
-      mjx-container {
-          display: inline-block !important;
-          margin: 0 4px !important;
-          vertical-align: middle;
-          line-height: 0;
-      }
-
-      /* Evita el colapso vertical (lo que pasa en tu segunda imagen) */
-      .opcion-linea label, .opcion-linea span, .opcion-bloque div {
-          white-space: normal; 
-          word-wrap: break-word;
-      }
-
-      /* Asegura que el checkbox no se mueva de su sitio */
-      input[type="checkbox"] {
-          flex-shrink: 0;
-          margin-top: 5px; /* Ajuste manual para centrar con la primera línea de texto */
+        .opcion-linea, .opcion-bloque { page-break-inside: avoid; }
       }
     </style>
   </head>
@@ -223,7 +207,9 @@
     </div>
 
     <script>
-      // LOGICA JAVASCRIPT
+      // === LOGICA JAVASCRIPT ===
+
+      // Menú desplegable
       function toggleMenu() {
         const menu = document.getElementById("extra-buttons");
         const btn = document.getElementById("toggleMenuBtn");
@@ -236,20 +222,20 @@
         }
       }
 
+      // Modo Oscuro
       function toggleModo() {
         document.body.classList.toggle("dark-mode");
         const btn = document.getElementById("modoBtn");
         btn.textContent = document.body.classList.contains("dark-mode") ? "☀️ Modo claro" : "🌙 Modo oscuro";
       }
 
-      // Corrección interactiva
+      // Lógica de corrección en tiempo real
       document.querySelectorAll(".question").forEach((q) => {
         const correct = q.dataset.correct.split(",").map(Number);
         const checkboxes = q.querySelectorAll('input[type="checkbox"]');
         
         checkboxes.forEach((cb) => {
           cb.addEventListener("change", () => {
-            // Si estamos en modo examen, no corregir al instante
             if (document.body.classList.contains('modo-examen')) return;
 
             const checked = Array.from(checkboxes).map((c, i) => (c.checked ? i : null)).filter((i) => i !== null);
@@ -271,6 +257,7 @@
         });
       });
 
+      // Utilidades
       function shuffleQuestions() {
         const container = document.getElementById("questions-container");
         const questions = Array.from(container.children);
@@ -303,7 +290,6 @@
           q.querySelectorAll('input').forEach(cb => cb.checked = false);
           q.classList.remove('correct', 'partial', 'incorrect');
         });
-        // Si hay resumen o botón de examen, limpiarlos
         const resumen = document.getElementById('resumen-examen');
         if(resumen) resumen.remove();
         document.body.classList.remove('modo-examen');
@@ -316,7 +302,6 @@
         const btn = document.getElementById('toggleIncorrectasBtn');
         const preguntas = document.querySelectorAll('.question');
         
-        // Verificar si se ha corregido algo
         const hayCorregidas = Array.from(preguntas).some(q => q.classList.contains('incorrect') || q.classList.contains('correct'));
         if(!hayCorregidas) {
             alert("Responde y corrige algunas preguntas primero.");
@@ -341,9 +326,8 @@
       function activarModoExamen() {
         resetAnswers();
         document.body.classList.add('modo-examen');
-        alert("Modo Examen: Las respuestas no se corregirán hasta que pulses 'Corregir Examen' al final.");
+        alert("Modo Examen activo. Las respuestas no se validarán hasta finalizar.");
         
-        // Crear botón de corregir al final
         if(!document.getElementById('btn-corregir-examen')){
             const btn = document.createElement('button');
             btn.id = 'btn-corregir-examen';
@@ -388,10 +372,10 @@
         });
 
         const total = preguntas.length;
-        const nota = ((correctas + (parciales * 0.5)) / total) * 10;
+        const nota = total > 0 ? ((correctas + (parciales * 0.5)) / total) * 10 : 0;
         
         const resumenHTML = `
-            <div id="resumen-examen" class="info-box" style="margin-top:20px; border-color: #007bff;">
+            <div id="resumen-examen" class="info-box" style="margin-top:20px; border-color: var(--primary-color);">
                 <h3>Resultados del Examen</h3>
                 <p><strong>Nota: ${nota.toFixed(2)} / 10</strong></p>
                 <ul>

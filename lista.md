@@ -1,9 +1,0 @@
-- Estos tests están diseñados para repasar y autoevaluar los conocimientos adquiridos en la asignatura.
-- Ayudan a identificar áreas de mejora antes de los exámenes oficiales.
-- Fomentan la práctica activa y permiten comprobar de forma inmediata las respuestas correctas.
-- Proceden de diversas fuentes, por lo que podrían contener errores. Si detectas alguno, se agradecerá su notificación a través de [este enlace](https://elblogdeismael.github.io/#contact).
-- El test puede desordenarse, mostrar respuestas correctas y ofrece otras funciones útiles que se recomienda explorar.
-- Algunas preguntas pueden tener más de una respuesta correcta, marcadas en amarillo (parcialmente correctas).
-- No hay un número fijo de respuestas correctas por pregunta; esto obliga al usuario a conocer cuántas son realmente válidas.
-- Han sido generados con la herramienta [md2html-testGenerator](https://github.com/Ismael-Sallami/md2html), desarrollada por [Ismael Sallami](https://ismael-sallami.github.io/).
-- Se recomienda acceder en modo escritorio para una mejor experiencia. En móviles, la interfaz se adapta mostrando las respuestas debajo de cada casilla para facilitar su uso.
