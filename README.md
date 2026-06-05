@@ -1,5 +1,9 @@
 # MD2HTML 
 
+> ### 🌐 Pruébalo online, sin instalar nada → **[elblogdeismael.github.io/md2html](https://elblogdeismael.github.io/md2html/)**
+> Arrastra tu archivo `.md`, elige tema y opciones, y descarga el test HTML al instante. Todo se
+> procesa en tu navegador: tu archivo nunca se sube a ningún servidor.
+
 ![Imagen](readmeFiles/stickman-8560_256.gif)
 
 Siendo estudiante viene bien hacer tipo test propias o ya sean copiadas de diversas plataformas para poder practicar de cara al examen, pero el hacer tipo test en formato `html` puede ser complicado ya que requiere de conocimiento previo sobre el código. Por ello os presento esta herramienta que es capaz de pasar texto plano a html para poder difundir esas preguntas para que las hagan las personas interesadas las veces que deseen,para profesores que quieren preparar a sus alumnos, profesores de Inglés para poner un ejercicio de listening o un video educativo y preguntarle luego sobre este y muchas otras opciones. 
@@ -167,13 +171,26 @@ Viendo el ejemplo tenemos que:
 ```
 > Las palabras *video* y *audio* son fijas para que el software lo reconozca y debemos de tener cuidado con **Autor:** y demás y ponerlo tal cual para evitar errores.
 
-- Los comentarios no se ponen, por lo que podemos añadirlos para agregar claridad y explicaciones.
+- Los comentarios HTML (`<!-- ... -->`) tienen un doble uso:
+  - Si en la interfaz marcamos *"Usar Comentarios HTML como Secciones"*, cada comentario se convierte en un **título de sección** (`<h2>`) que agrupa las preguntas siguientes. Útil para organizar el test por temas.
+  - Si esa opción está desactivada, los comentarios simplemente se ignoran y sirven para anotar el `.md`.
 - Para las opciones debemos de poner:
 ```md
 ( ) opción no correcta
 (x)opción correcta
 ```
 >Importante dejar el espacio entre los paréntesis cuando la opción no es correcta.
+
+- Podemos añadir una **explicación** a cada pregunta escribiendo una línea que empiece por `>` justo después de las opciones. En el test aparecerá un botón *"Ver explicación"* que la muestra u oculta (también se revela al pulsar *"Ver soluciones"*). Es ideal para repasar el porqué de cada respuesta:
+```md
+1. La rotación de puestos sirve para rediseñar un puesto con bajo nivel de especialización.
+
+    - ( ) Verdadero
+    - (x) Falso
+
+    > Falso: la rotación es adecuada cuando hay un ALTO nivel de especialización.
+```
+>La explicación es opcional; las preguntas sin línea `>` no muestran el botón.
 
 - Podemos poner fórmulas:
 ```md
@@ -232,7 +249,19 @@ Se incluye un video de como hacerlo:
 
 ## Plantillas
 
-Se presentan varias plantillas, unas más coloridas que otras y con otras características, la más completa es la plantilla denominada `plantilla.html`.
+Por defecto la herramienta usa la plantilla `plantillaPRO.html`, que se regenera automáticamente desde el propio programa (siempre refleja la última versión). Si en la interfaz marcamos *"Usar plantilla HTML personalizada"* podemos elegir cualquier otra plantilla del directorio `plantillas/`.
+
+Se incluyen varios **temas formales**, todos con las mismas funciones (corrección, modo examen, modo oscuro, explicaciones, etc.) y diferenciados solo por la paleta de color:
+
+| Plantilla | Tema |
+|-----------|------|
+| `plantillaPRO.html` | Azul clásico (por defecto) |
+| `plantilla.html` | Azul marino |
+| `plantilla1.html` | Granate académico |
+| `plantilla2.html` | Verde pizarra |
+| `plantilla3.html` | Índigo |
+| `plantilla4.html` | Grafito |
+| `plantilla5.html` | Ámbar |
 
 Aquí se pude ver imágenes de las previsualizaciones (en la carpeta `/plantillas/ejemplos` se encuentran los ejemplos que al clonar se pueden visualizar en su navegador para una prueba más sólida):
 

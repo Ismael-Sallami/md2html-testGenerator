@@ -64,9 +64,9 @@ HTML_TEMPLATE_CONTENT = r"""<!DOCTYPE html>
       }
       
       h2 {
-        color: #0000ff; /* Azul estándar o usa el nombre 'blue' */
-        margin-top: 40px; 
-        border-bottom: 2px solid #0000ff; /* El "subrayado" con borde del mismo azul */
+        color: var(--primary-color);
+        margin-top: 40px;
+        border-bottom: 2px solid var(--primary-color);
         padding-bottom: 10px;
       }
 
@@ -132,6 +132,41 @@ HTML_TEMPLATE_CONTENT = r"""<!DOCTYPE html>
       table { border-collapse: collapse; width: 100%; margin: 10px 0; overflow-x: auto; display: block; }
       th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
       th { background-color: #f8f9fa; }
+
+      .btn-explicacion {
+        background-color: transparent;
+        color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+        padding: 6px 12px;
+        margin: 10px 0 0 0;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .btn-explicacion:hover {
+        background-color: var(--primary-color);
+        color: #fff;
+      }
+      .explicacion {
+        margin-top: 12px;
+        padding: 12px 16px;
+        border-left: 4px solid var(--primary-color);
+        background-color: rgba(0, 123, 255, 0.07);
+        border-radius: 4px;
+        font-size: 0.96em;
+      }
+      .dark-mode .btn-explicacion {
+        color: #93c5fd;
+        border-color: #93c5fd;
+      }
+      .dark-mode .btn-explicacion:hover {
+        background-color: #93c5fd;
+        color: #121212;
+      }
+      .dark-mode .explicacion {
+        background-color: rgba(147, 197, 253, 0.1);
+        border-left-color: #93c5fd;
+      }
 
       .info-box {
         background: var(--card-bg);
@@ -206,13 +241,13 @@ HTML_TEMPLATE_CONTENT = r"""<!DOCTYPE html>
       <button id="toggleMenuBtn" onclick="toggleMenu()">Mostrar menú de opciones</button>
       
       <div id="extra-buttons" class="extra-buttons-grid" style="display: none">
-        <button onclick="shuffleQuestions()">🔀 Desordenar preguntas</button>
-        <button onclick="showCorrectAnswers()">👁️ Ver soluciones</button>
-        <button onclick="resetAnswers()">🔄 Reiniciar</button>
-        <button onclick="toggleModo()" id="modoBtn">🌙 Modo oscuro</button>
-        <button onclick="toggleMostrarIncorrectas()" id="toggleIncorrectasBtn">❌ Mostrar fallos</button>
-        <button onclick="activarModoExamen()">📝 Modo Examen</button>
-        <button onclick="window.print()">🖨️ Imprimir / PDF</button>
+        <button onclick="shuffleQuestions()">Desordenar preguntas</button>
+        <button onclick="showCorrectAnswers()">Ver soluciones</button>
+        <button onclick="resetAnswers()">Reiniciar</button>
+        <button onclick="toggleModo()" id="modoBtn">Modo oscuro</button>
+        <button onclick="toggleMostrarIncorrectas()" id="toggleIncorrectasBtn">Mostrar fallos</button>
+        <button onclick="activarModoExamen()">Modo examen</button>
+        <button onclick="window.print()">Imprimir / PDF</button>
       </div>
     </div>
 
@@ -233,10 +268,23 @@ HTML_TEMPLATE_CONTENT = r"""<!DOCTYPE html>
         }
       }
 
+      function toggleExplicacion(id) {
+        const exp = document.getElementById("exp-" + id);
+        if (!exp) return;
+        const btn = exp.previousElementSibling;
+        if (exp.style.display === "none") {
+          exp.style.display = "block";
+          if (btn) btn.textContent = "Ocultar explicación";
+        } else {
+          exp.style.display = "none";
+          if (btn) btn.textContent = "Ver explicación";
+        }
+      }
+
       function toggleModo() {
         document.body.classList.toggle("dark-mode");
         const btn = document.getElementById("modoBtn");
-        btn.textContent = document.body.classList.contains("dark-mode") ? "☀️ Modo claro" : "🌙 Modo oscuro";
+        btn.textContent = document.body.classList.contains("dark-mode") ? "Modo claro" : "Modo oscuro";
       }
 
       document.querySelectorAll(".question").forEach((q) => {
@@ -291,6 +339,12 @@ HTML_TEMPLATE_CONTENT = r"""<!DOCTYPE html>
           });
           q.classList.remove("partial", "incorrect");
           q.classList.add("correct");
+          const exp = q.querySelector(".explicacion");
+          if (exp) {
+            exp.style.display = "block";
+            const btn = exp.previousElementSibling;
+            if (btn) btn.textContent = "Ocultar explicación";
+          }
         });
       }
 
@@ -326,7 +380,7 @@ HTML_TEMPLATE_CONTENT = r"""<!DOCTYPE html>
           btn.textContent = 'Mostrar todas';
         } else {
           preguntas.forEach(q => q.style.display = 'block');
-          btn.textContent = '❌ Mostrar fallos';
+          btn.textContent = 'Mostrar fallos';
         }
         showingIncorrect = !showingIncorrect;
       }
@@ -384,13 +438,13 @@ HTML_TEMPLATE_CONTENT = r"""<!DOCTYPE html>
         
         const resumenHTML = `
             <div id="resumen-examen" class="info-box" style="margin-top:20px; border-color: var(--primary-color);">
-                <h3>Resultados del Examen</h3>
+                <h3>Resultados del examen</h3>
                 <p><strong>Nota: ${nota.toFixed(2)} / 10</strong></p>
                 <ul>
-                    <li>✅ Correctas: ${correctas}</li>
-                    <li>⚠️ Parciales: ${parciales}</li>
-                    <li>❌ Incorrectas: ${incorrectas}</li>
-                    <li>⚪ Sin responder: ${sin_responder}</li>
+                    <li>Correctas: ${correctas}</li>
+                    <li>Parciales: ${parciales}</li>
+                    <li>Incorrectas: ${incorrectas}</li>
+                    <li>Sin responder: ${sin_responder}</li>
                 </ul>
             </div>
         `;
@@ -407,6 +461,18 @@ HTML_TEMPLATE_CONTENT = r"""<!DOCTYPE html>
   </body>
 </html>
 """
+
+# Temas/plantillas disponibles -> fichero en plantillas/ (None = plantillaPRO embebida)
+TEMAS = {
+    "PRO (Azul clásico)": None,
+    "Navy (azul marino)": "plantilla.html",
+    "Burdeos académico": "plantilla1.html",
+    "Verde pizarra": "plantilla2.html",
+    "Índigo": "plantilla3.html",
+    "Grafito": "plantilla4.html",
+    "Ámbar": "plantilla5.html",
+    "Académico (paper)": "plantilla6.html",
+}
 
 # =======================================================
 # 2. LÓGICA DE PROCESAMIENTO (BACKEND)
@@ -428,40 +494,49 @@ def parsear_preguntas(bloque_texto):
     """Busca preguntas formato: 1. Pregunta... - (x) Opción correcta"""
     regex_pregunta = re.compile(r'(?m)^(\d+)\.\s+(.*?)\n(?=^\d+\.|\Z)', re.DOTALL)
     regex_opcion = re.compile(r'^\s*-\s*\((x|X|\s|)\)\s*(.*)', re.MULTILINE)
-    
+    regex_explicacion = re.compile(r'^\s*>\s?(.*)')
+
     preguntas = []
     matches = list(regex_pregunta.finditer(bloque_texto))
-    
+
     for match in matches:
-        contenido_completo = match.group(2) 
+        contenido_completo = match.group(2)
         lines = contenido_completo.split('\n')
         enunciado_lines = []
         opciones_raw = []
+        explicacion_lines = []
         buscando_opciones = False
-        
+
         for line in lines:
+            m_exp = regex_explicacion.match(line)
             m_opt = regex_opcion.match(line)
-            if m_opt:
+            if m_exp:
+                # Línea de explicación (blockquote ">"): se acumula aparte para no
+                # contaminar el texto de la última opción.
+                explicacion_lines.append(m_exp.group(1).strip())
+            elif m_opt:
                 buscando_opciones = True
-                marca = m_opt.group(1).strip().lower() 
+                marca = m_opt.group(1).strip().lower()
                 texto = m_opt.group(2).strip()
                 opciones_raw.append({'marca': marca, 'texto': texto})
             else:
                 if not buscando_opciones:
-                    if line.strip(): 
+                    if line.strip():
                         enunciado_lines.append(line)
                 else:
                     if opciones_raw and line.strip():
                         opciones_raw[-1]['texto'] += " " + line.strip()
 
         enunciado_final = "\n".join(enunciado_lines).strip()
+        explicacion_final = " ".join(explicacion_lines).strip()
         correctas = [i for i, opt in enumerate(opciones_raw) if opt['marca'] == 'x']
-        
+
         if enunciado_final and opciones_raw:
             preguntas.append({
                 'enunciado': enunciado_final,
                 'opciones': opciones_raw,
-                'correctas': correctas
+                'correctas': correctas,
+                'explicacion': explicacion_final
             })
             
     return preguntas
@@ -481,8 +556,15 @@ def renderizar_bloque_preguntas(lista_preguntas, contador_inicial=1):
         for i, opt in enumerate(p['opciones']):
             texto_opt_html = procesar_texto_md(opt['texto'])
             html_acumulado += f'    <li><label class="opcion-linea"><input type="checkbox" name="q{idx}" value="{i}"> {texto_opt_html}</label></li>\n'
-            
+
         html_acumulado += '  </ol>\n'
+
+        explicacion = p.get('explicacion', '')
+        if explicacion:
+            explicacion_html = procesar_texto_md(explicacion)
+            html_acumulado += f'  <button class="btn-explicacion" onclick="toggleExplicacion(\'q{idx}\')">Ver explicación</button>\n'
+            html_acumulado += f'  <div class="explicacion" id="exp-q{idx}" style="display:none">{explicacion_html}</div>\n'
+
         html_acumulado += '</div>\n'
         idx += 1
         
@@ -559,12 +641,19 @@ def generar_html_final(archivo_md, archivo_html, extra_info_md, usar_secciones, 
         bloque, contador = renderizar_bloque_preguntas(preguntas, contador)
         html_cuerpo += bloque
 
-    plantilla_path = os.path.join("plantillas", "plantillaPRO.html")
-    os.makedirs("plantillas", exist_ok=True)
-    if not os.path.exists(plantilla_path):
+    if plantilla_custom and os.path.exists(plantilla_custom):
+        # Plantilla personalizada elegida por el usuario.
+        plantilla_path = plantilla_custom
+    else:
+        # Plantilla PRO por defecto, regenerada siempre desde la constante
+        # para que refleje la versión actual de la herramienta.
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        plantillas_dir = os.path.join(base_dir, "plantillas")
+        os.makedirs(plantillas_dir, exist_ok=True)
+        plantilla_path = os.path.join(plantillas_dir, "plantillaPRO.html")
         with open(plantilla_path, "w", encoding="utf-8") as f:
             f.write(HTML_TEMPLATE_CONTENT)
-            
+
     with open(plantilla_path, "r", encoding="utf-8") as f:
         template_str = f.read()
         
@@ -594,6 +683,7 @@ class App(tk.Tk):
         self.use_sections = tk.BooleanVar(value=True)
         self.shuffle = tk.BooleanVar(value=True)
         self.usar_plantilla_propia = tk.BooleanVar(value=False)
+        self.tema = tk.StringVar(value="PRO (Azul clásico)")
         
         self.crear_widgets()
         
@@ -623,7 +713,19 @@ class App(tk.Tk):
         ttk.Button(f2, text="Guardar en...", command=self.buscar_html).pack(side='left')
         
         ttk.Separator(frame, orient='horizontal').pack(fill='x', pady=15)
-        
+
+        # Selector de tema / plantilla predefinida
+        ttk.Label(frame, text="Tema / plantilla:").pack(anchor='w')
+        self.combo_tema = ttk.Combobox(
+            frame,
+            textvariable=self.tema,
+            values=list(TEMAS.keys()),
+            state='readonly'
+        )
+        self.combo_tema.pack(fill='x', pady=5)
+
+        ttk.Separator(frame, orient='horizontal').pack(fill='x', pady=15)
+
         # Nueva sección de plantilla personalizada
         chk_plantilla = ttk.Checkbutton(
             frame, 
@@ -682,8 +784,17 @@ class App(tk.Tk):
         md = self.md_path.get()
         out = self.html_path.get()
         extra = self.extra_path.get()
-        plantilla_custom = self.plantilla_path.get() if self.usar_plantilla_propia.get() else None
-        
+        if self.usar_plantilla_propia.get():
+            plantilla_custom = self.plantilla_path.get()
+        else:
+            # Resolver el tema elegido en el desplegable. None = plantillaPRO embebida.
+            fichero_tema = TEMAS.get(self.tema.get())
+            if fichero_tema:
+                base_dir = os.path.dirname(os.path.abspath(__file__))
+                plantilla_custom = os.path.join(base_dir, "plantillas", fichero_tema)
+            else:
+                plantilla_custom = None
+
         if not md or not out:
             messagebox.showwarning("Faltan datos", "Selecciona archivo de entrada y salida.")
             return
