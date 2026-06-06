@@ -23,7 +23,6 @@
       };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
       :root {
@@ -51,6 +50,13 @@
         color: var(--primary-color);
         margin-bottom: 10px;
       }
+      
+      h2 {
+        color: var(--primary-color);
+        margin-top: 40px;
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 10px;
+      }
 
       .author {
         text-align: center;
@@ -60,7 +66,6 @@
         color: #666;
       }
       
-      /* --- CAJAS DE PREGUNTAS --- */
       .question {
         background: var(--card-bg);
         border: 1px solid var(--border-color);
@@ -69,19 +74,17 @@
         margin-bottom: 25px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         transition: transform 0.2s, box-shadow 0.2s;
-        overflow-wrap: break-word; /* Evita desbordamiento horizontal */
+        overflow-wrap: break-word; 
       }
       .question:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
 
-      /* Estados de corrección */
       .correct { border-color: #28a745; background-color: #d4edda; }
       .partial { border-color: #ffc107; background-color: #fff3cd; }
       .incorrect { border-color: #dc3545; background-color: #f8d7da; }
 
-      /* Enunciados */
       .enunciado { margin-bottom: 15px; }
       .enunciado-bloque { display: flex; gap: 10px; margin-bottom: 15px; }
       .enunciado-bloque .num { font-weight: bold; min-width: 25px; }
@@ -89,46 +92,70 @@
       ol { padding-left: 0; list-style: none; }
       li { margin-bottom: 10px; position: relative; }
       
-      /* --- SOLUCIÓN DE MAQUETACIÓN PARA MATHJAX --- */
-      /* Usamos display: block con padding en lugar de flexbox para evitar
-         que las fórmulas matemáticas se separen del texto */
-      
       .opcion-linea, .opcion-bloque {
-        display: block;      /* Importante: NO usar flex */
-        padding-left: 35px;  /* Espacio para el checkbox */
+        display: block;      
+        padding-left: 35px;  
         position: relative;
         cursor: pointer;
-        min-height: 24px;    /* Altura mínima visual */
+        min-height: 24px;   
       }
 
-      /* Checkbox posicionado absolutamente a la izquierda */
       .opcion-linea input[type="checkbox"], 
       .opcion-bloque input[type="checkbox"] {
         position: absolute;
         left: 0;
-        top: 2px;  /* Ajuste fino para alinear con la primera línea de texto */
+        top: 2px;
         transform: scale(1.3);
         margin: 0;
         cursor: pointer;
       }
 
-      /* Asegura que el texto y las fórmulas fluyan juntos */
       .opcion-linea label, .opcion-linea span, .opcion-bloque div {
-        display: inline; /* Hace que el texto fluya naturalmente */
+        display: inline; 
       }
 
-      /* Ajustes específicos para MathJax dentro de opciones */
-      mjx-container {
-        font-size: 110% !important; /* Ligeramente más grande para legibilidad */
-      }
+      mjx-container { font-size: 110% !important; }
       
-      /* Imágenes y Tablas responsive */
       img { max-width: 100%; height: auto; border-radius: 4px; }
       table { border-collapse: collapse; width: 100%; margin: 10px 0; overflow-x: auto; display: block; }
       th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
       th { background-color: #f8f9fa; }
 
-      /* Botones y Panel Info */
+      .btn-explicacion {
+        background-color: transparent;
+        color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+        padding: 6px 12px;
+        margin: 10px 0 0 0;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .btn-explicacion:hover {
+        background-color: var(--primary-color);
+        color: #fff;
+      }
+      .explicacion {
+        margin-top: 12px;
+        padding: 12px 16px;
+        border-left: 4px solid var(--primary-color);
+        background-color: rgba(0, 123, 255, 0.07);
+        border-radius: 4px;
+        font-size: 0.96em;
+      }
+      .dark-mode .btn-explicacion {
+        color: #93c5fd;
+        border-color: #93c5fd;
+      }
+      .dark-mode .btn-explicacion:hover {
+        background-color: #93c5fd;
+        color: #121212;
+      }
+      .dark-mode .explicacion {
+        background-color: rgba(147, 197, 253, 0.1);
+        border-left-color: #93c5fd;
+      }
+
       .info-box {
         background: var(--card-bg);
         border: 1px solid var(--border-color);
@@ -155,8 +182,17 @@
         gap: 10px;
         margin-top: 15px;
       }
+      
+      .instrucciones-extra ul {
+        padding-left: 20px;
+        margin-top: 10px;
+        font-size: 0.95em;
+        color: #555;
+      }
+      .instrucciones-extra li {
+        margin-bottom: 5px;
+      }
 
-      /* --- MODO OSCURO --- */
       body.dark-mode {
         --bg-color: #121212;
         --text-color: #e0e0e0;
@@ -167,17 +203,15 @@
       }
       .dark-mode .author { color: #aaa; }
       .dark-mode th { background-color: #333; }
-      
       .dark-mode .correct { background-color: #064e3b !important; border-color: #059669; }
       .dark-mode .partial { background-color: #451a03 !important; border-color: #d97706; }
       .dark-mode .incorrect { background-color: #450a0a !important; border-color: #dc2626; }
+      .dark-mode .instrucciones-extra ul { color: #bbb; }
 
-      /* Impresión */
       @media print {
         body { background: white; color: black; max-width: 100%; padding: 0; }
         .question { page-break-inside: avoid; border: none; box-shadow: none; padding: 0; margin-bottom: 20px; }
         .info-box, button, #extra-buttons { display: none !important; }
-        .opcion-linea, .opcion-bloque { page-break-inside: avoid; }
       }
     </style>
   </head>
@@ -187,18 +221,21 @@
 
     <div class="info-box">
       <p>{{DESCRIPCION}}</p>
-      {{LISTA_INFO}}
+      
+      <div class="instrucciones-extra">
+        {{LISTA_INFO}}
+      </div>
       
       <button id="toggleMenuBtn" onclick="toggleMenu()">Mostrar menú de opciones</button>
       
       <div id="extra-buttons" class="extra-buttons-grid" style="display: none">
-        <button onclick="shuffleQuestions()">🔀 Desordenar preguntas</button>
-        <button onclick="showCorrectAnswers()">👁️ Ver soluciones</button>
-        <button onclick="resetAnswers()">🔄 Reiniciar</button>
-        <button onclick="toggleModo()" id="modoBtn">🌙 Modo oscuro</button>
-        <button onclick="toggleMostrarIncorrectas()" id="toggleIncorrectasBtn">❌ Mostrar fallos</button>
-        <button onclick="activarModoExamen()">📝 Modo Examen</button>
-        <button onclick="window.print()">🖨️ Imprimir / PDF</button>
+        <button onclick="shuffleQuestions()">Desordenar preguntas</button>
+        <button onclick="showCorrectAnswers()">Ver soluciones</button>
+        <button onclick="resetAnswers()">Reiniciar</button>
+        <button onclick="toggleModo()" id="modoBtn">Modo oscuro</button>
+        <button onclick="toggleMostrarIncorrectas()" id="toggleIncorrectasBtn">Mostrar fallos</button>
+        <button onclick="activarModoExamen()">Modo examen</button>
+        <button onclick="window.print()">Imprimir / PDF</button>
       </div>
     </div>
 
@@ -207,9 +244,6 @@
     </div>
 
     <script>
-      // === LOGICA JAVASCRIPT ===
-
-      // Menú desplegable
       function toggleMenu() {
         const menu = document.getElementById("extra-buttons");
         const btn = document.getElementById("toggleMenuBtn");
@@ -222,14 +256,25 @@
         }
       }
 
-      // Modo Oscuro
+      function toggleExplicacion(id) {
+        const exp = document.getElementById("exp-" + id);
+        if (!exp) return;
+        const btn = exp.previousElementSibling;
+        if (exp.style.display === "none") {
+          exp.style.display = "block";
+          if (btn) btn.textContent = "Ocultar explicación";
+        } else {
+          exp.style.display = "none";
+          if (btn) btn.textContent = "Ver explicación";
+        }
+      }
+
       function toggleModo() {
         document.body.classList.toggle("dark-mode");
         const btn = document.getElementById("modoBtn");
-        btn.textContent = document.body.classList.contains("dark-mode") ? "☀️ Modo claro" : "🌙 Modo oscuro";
+        btn.textContent = document.body.classList.contains("dark-mode") ? "Modo claro" : "Modo oscuro";
       }
 
-      // Lógica de corrección en tiempo real
       document.querySelectorAll(".question").forEach((q) => {
         const correct = q.dataset.correct.split(",").map(Number);
         const checkboxes = q.querySelectorAll('input[type="checkbox"]');
@@ -257,19 +302,19 @@
         });
       });
 
-      // Utilidades
       function shuffleQuestions() {
         const container = document.getElementById("questions-container");
         const questions = Array.from(container.children);
+        const realQuestions = questions.filter(el => el.classList.contains('question'));
+        
+        if(document.querySelector('h2')) {
+            alert("Atención: Al desordenar con secciones activas, las preguntas se mezclarán entre todas las secciones visualmente.");
+        }
+        
         for (let i = questions.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           container.appendChild(questions[j]);
         }
-        // Renumerar visualmente
-        questions.forEach((q, idx) => {
-            const num = q.querySelector(".num") || q.querySelector("strong");
-            if(num) num.textContent = (idx + 1) + ".";
-        });
       }
 
       function showCorrectAnswers() {
@@ -282,6 +327,12 @@
           });
           q.classList.remove("partial", "incorrect");
           q.classList.add("correct");
+          const exp = q.querySelector(".explicacion");
+          if (exp) {
+            exp.style.display = "block";
+            const btn = exp.previousElementSibling;
+            if (btn) btn.textContent = "Ocultar explicación";
+          }
         });
       }
 
@@ -317,12 +368,11 @@
           btn.textContent = 'Mostrar todas';
         } else {
           preguntas.forEach(q => q.style.display = 'block');
-          btn.textContent = '❌ Mostrar fallos';
+          btn.textContent = 'Mostrar fallos';
         }
         showingIncorrect = !showingIncorrect;
       }
 
-      // --- MODO EXAMEN ---
       function activarModoExamen() {
         resetAnswers();
         document.body.classList.add('modo-examen');
@@ -376,13 +426,13 @@
         
         const resumenHTML = `
             <div id="resumen-examen" class="info-box" style="margin-top:20px; border-color: var(--primary-color);">
-                <h3>Resultados del Examen</h3>
+                <h3>Resultados del examen</h3>
                 <p><strong>Nota: ${nota.toFixed(2)} / 10</strong></p>
                 <ul>
-                    <li>✅ Correctas: ${correctas}</li>
-                    <li>⚠️ Parciales: ${parciales}</li>
-                    <li>❌ Incorrectas: ${incorrectas}</li>
-                    <li>⚪ Sin responder: ${sin_responder}</li>
+                    <li>Correctas: ${correctas}</li>
+                    <li>Parciales: ${parciales}</li>
+                    <li>Incorrectas: ${incorrectas}</li>
+                    <li>Sin responder: ${sin_responder}</li>
                 </ul>
             </div>
         `;

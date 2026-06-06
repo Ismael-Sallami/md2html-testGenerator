@@ -472,6 +472,10 @@ TEMAS = {
     "Grafito": "plantilla4.html",
     "Ámbar": "plantilla5.html",
     "Académico (paper)": "plantilla6.html",
+    "Terminal oscuro": "plantilla7.html",
+    "Minimal mono": "plantilla8.html",
+    "Teal / menta": "plantilla9.html",
+    "Rosa / magenta": "plantilla10.html",
 }
 
 # =======================================================

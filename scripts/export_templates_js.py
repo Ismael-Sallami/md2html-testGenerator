@@ -38,6 +38,10 @@ TEMAS = [
     ("grafito",   "Grafito",             "plantilla4.html"),
     ("ambar",     "Ámbar",               "plantilla5.html"),
     ("academico", "Académico (paper)",   "plantilla6.html"),
+    ("terminal",  "Terminal oscuro",     "plantilla7.html"),
+    ("mono",      "Minimal mono",        "plantilla8.html"),
+    ("teal",      "Teal / menta",        "plantilla9.html"),
+    ("rosa",      "Rosa / magenta",      "plantilla10.html"),
 ]
 
 

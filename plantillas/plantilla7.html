@@ -26,16 +26,16 @@
 
     <style>
       :root {
-        --bg-color: #eef2f9;
-        --text-color: #333;
-        --card-bg: #fff;
-        --border-color: #ddd;
-        --primary-color: #1d4ed8;
-        --hover-color: #1e3a8a;
+        --bg-color: #0d1117;
+        --text-color: #c9d1d9;
+        --card-bg: #161b22;
+        --border-color: #30363d;
+        --primary-color: #00e58a;
+        --hover-color: #00c074;
       }
 
       body {
-        font-family: "Segoe UI", "Palatino Linotype", serif;
+        font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", Consolas, monospace;
         background-color: var(--bg-color);
         color: var(--text-color);
         line-height: 1.6;
@@ -63,7 +63,7 @@
         margin-bottom: 20px;
         font-size: 16px;
         font-style: italic;
-        color: #666;
+        color: #8b949e;
       }
       
       .question {
@@ -82,16 +82,16 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
 
-      .correct   { border-color: #1e7e34; background-color: #cdeccd; }
-      .partial   { border-color: #c79100; background-color: #fff0bf; }
-      .incorrect { border-color: #c12a37; background-color: #f7c9ce; }
+      .correct   { border-color: #2ea44f; background-color: #06351f; }
+      .partial   { border-color: #d9a400; background-color: #3a2a00; }
+      .incorrect { border-color: #f06070; background-color: #3a0d14; }
       .correct::before, .partial::before, .incorrect::before {
         position: absolute; top: 12px; right: 14px;
         font-weight: 700; font-size: 1.15rem; line-height: 1;
       }
-      .correct::before   { content: "\2713"; color: #1e7e34; }
-      .incorrect::before { content: "\2717"; color: #c12a37; }
-      .partial::before   { content: "!"; color: #9a6b00; }
+      .correct::before   { content: "\2713"; color: #5ce08a; }
+      .incorrect::before { content: "\2717"; color: #ff8a8a; }
+      .partial::before   { content: "!"; color: #ffce5a; }
 
       .enunciado { margin-bottom: 15px; }
       .enunciado-bloque { display: flex; gap: 10px; margin-bottom: 15px; }
@@ -147,21 +147,21 @@
         margin-top: 12px;
         padding: 12px 16px;
         border-left: 4px solid var(--primary-color);
-        background-color: rgba(29, 78, 216, 0.07);
+        background-color: rgba(142, 36, 52, 0.07);
         border-radius: 4px;
         font-size: 0.96em;
       }
       .dark-mode .btn-explicacion {
-        color: #93c5fd;
-        border-color: #93c5fd;
+        color: #e3a7af;
+        border-color: #e3a7af;
       }
       .dark-mode .btn-explicacion:hover {
-        background-color: #93c5fd;
+        background-color: #e3a7af;
         color: #121212;
       }
       .dark-mode .explicacion {
         background-color: rgba(147, 197, 253, 0.1);
-        border-left-color: #93c5fd;
+        border-left-color: #e3a7af;
       }
 
       .info-box {
@@ -195,7 +195,7 @@
         padding-left: 20px;
         margin-top: 10px;
         font-size: 0.95em;
-        color: #555;
+        color: #8b949e;
       }
       .instrucciones-extra li {
         margin-bottom: 5px;

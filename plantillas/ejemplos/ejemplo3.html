@@ -3,332 +3,374 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
-    />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script>
-      hljs.highlightAll();
-    </script>
     <title>Test de Ejemplo Completo</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
+          processEscapes: true
+        },
+        options: {
+          ignoreHtmlClass: 'tex2jax_ignore',
+          processHtmlClass: 'tex2jax_process'
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <style>
+      :root {
+        --bg-color: #eef0fb;
+        --text-color: #333;
+        --card-bg: #fff;
+        --border-color: #ddd;
+        --primary-color: #4338ca;
+        --hover-color: #3730a3;
+      }
+
       body {
-        font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: #f7f6f3;
-        color: #37352f;
-        margin: 0;
-        padding: 32px 0;
-        font-size: 16px;
+        font-family: "Segoe UI", "Palatino Linotype", serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        padding: 20px;
+        font-size: 18px;
+        max-width: 900px;
+        margin: 0 auto;
       }
 
       h1 {
         text-align: center;
-        color: #2f76da;
+        color: var(--primary-color);
         margin-bottom: 10px;
-        font-size: 2.2em;
-        font-weight: 700;
-        letter-spacing: -1px;
+      }
+      
+      h2 {
+        color: var(--primary-color);
+        margin-top: 40px;
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 10px;
       }
 
       .author {
         text-align: center;
+        margin-bottom: 20px;
+        font-size: 16px;
         font-style: italic;
-        color: #787774;
-        margin-bottom: 24px;
-        font-size: 1.05em;
+        color: #666;
+      }
+      
+      .question {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s, box-shadow 0.2s;
+        overflow-wrap: break-word; 
+      }
+      .question:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .correct { border-color: #28a745; background-color: #d4edda; }
+      .partial { border-color: #ffc107; background-color: #fff3cd; }
+      .incorrect { border-color: #dc3545; background-color: #f8d7da; }
+
+      .enunciado { margin-bottom: 15px; }
+      .enunciado-bloque { display: flex; gap: 10px; margin-bottom: 15px; }
+      .enunciado-bloque .num { font-weight: bold; min-width: 25px; }
+      
+      ol { padding-left: 0; list-style: none; }
+      li { margin-bottom: 10px; position: relative; }
+      
+      .opcion-linea, .opcion-bloque {
+        display: block;      
+        padding-left: 35px;  
+        position: relative;
+        cursor: pointer;
+        min-height: 24px;   
+      }
+
+      .opcion-linea input[type="checkbox"], 
+      .opcion-bloque input[type="checkbox"] {
+        position: absolute;
+        left: 0;
+        top: 2px;
+        transform: scale(1.3);
+        margin: 0;
+        cursor: pointer;
+      }
+
+      .opcion-linea label, .opcion-linea span, .opcion-bloque div {
+        display: inline; 
+      }
+
+      mjx-container { font-size: 110% !important; }
+      
+      img { max-width: 100%; height: auto; border-radius: 4px; }
+      table { border-collapse: collapse; width: 100%; margin: 10px 0; overflow-x: auto; display: block; }
+      th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+      th { background-color: #f8f9fa; }
+
+      .btn-explicacion {
+        background-color: transparent;
+        color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+        padding: 6px 12px;
+        margin: 10px 0 0 0;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .btn-explicacion:hover {
+        background-color: var(--primary-color);
+        color: #fff;
+      }
+      .explicacion {
+        margin-top: 12px;
+        padding: 12px 16px;
+        border-left: 4px solid var(--primary-color);
+        background-color: rgba(67, 56, 202, 0.07);
+        border-radius: 4px;
+        font-size: 0.96em;
+      }
+      .dark-mode .btn-explicacion {
+        color: #a5b4fc;
+        border-color: #a5b4fc;
+      }
+      .dark-mode .btn-explicacion:hover {
+        background-color: #a5b4fc;
+        color: #121212;
+      }
+      .dark-mode .explicacion {
+        background-color: rgba(147, 197, 253, 0.1);
+        border-left-color: #a5b4fc;
       }
 
       .info-box {
-        background: linear-gradient(90deg, #e3e7fd 0%, #fbeee6 100%);
-        border-left: 6px solid #a3a8f7;
-        padding: 18px 28px;
-        border-radius: 10px;
-        margin-bottom: 32px;
-        box-shadow: 0 2px 8px rgba(163, 168, 247, 0.08);
-      }
-
-      .question {
-        background: #fff;
-        border-radius: 10px;
-        border-left: 6px solid #f7b955;
-        box-shadow: 0 2px 8px rgba(247, 185, 85, 0.07);
-        padding: 18px 24px;
-        margin-bottom: 24px;
-        transition: border-color 0.2s;
-      }
-      .question.correct {
-        border-left-color: #4caf50 !important;
-        background: #eafbe7;
-      }
-      .question.partial {
-        border-left-color: #ffd600 !important;
-        background: #fffbe6;
-      }
-      .question.incorrect {
-        border-left-color: #f44336 !important;
-        background: #fff0f0;
-      }
-
-      .enunciado,
-      .enunciado-bloque {
-        display: flex;
-        gap: 14px;
-        align-items: flex-start;
-        margin-bottom: 14px;
-      }
-
-      .num {
-        font-weight: bold;
-        color: #f7b955;
-        font-size: 1.3em;
-        margin-top: 3px;
-        font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      }
-
-      .texto pre {
-        margin-top: 8px;
-      }
-
-      ol[type="a"] {
-        padding-left: 32px;
-      }
-
-      input[type="checkbox"] {
-        margin-right: 12px;
-        accent-color: #a3a8f7;
-        transform: scale(1.15);
-      }
-
-      .opcion-linea {
-        display: flex;
-        align-items: center;
-        padding: 6px 0;
-        border-radius: 6px;
-        transition: background 0.15s;
-      }
-      .opcion-linea:hover {
-        background: #f3f2ef;
-      }
-
-      .opcion-bloque {
-        margin: 12px 0;
-        background: #f7f6f3;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
         border-radius: 8px;
-        padding: 8px 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
-
-      .opcion-bloque img {
-        max-width: 60%;
-        height: auto;
-        display: block;
-        margin-top: 8px;
-        border-radius: 6px;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
-      }
-
-      .opcion-bloque table {
-        border-collapse: collapse;
-        margin-top: 8px;
-        width: auto;
-        border-radius: 6px;
-        overflow: hidden;
-        box-shadow: 0 1px 4px rgba(163, 168, 247, 0.08);
-        background: #fff;
-      }
-
-      .opcion-bloque th,
-      .opcion-bloque td {
-        border: 1px solid #ececec;
-        padding: 8px 14px;
-        text-align: left;
-        font-size: 1em;
-      }
-
-      pre code {
-        background: #f7f6f3;
-        border: 1px solid #ececec;
-        padding: 12px;
-        display: block;
-        border-radius: 8px;
-        font-family: "JetBrains Mono", "Fira Mono", "Courier New", Courier,
-          monospace;
-        white-space: pre-wrap;
-        font-size: 0.98em;
-        color: #3d3d3d;
-      }
-
       button {
-        background: linear-gradient(90deg, #a3a8f7 0%, #f7b955 100%);
-        color: #fff;
+        background-color: var(--primary-color);
+        color: white;
         border: none;
-        border-radius: 8px;
-        padding: 8px 18px;
-        margin: 6px 6px 6px 0;
-        font-size: 1em;
-        font-weight: 600;
+        padding: 10px 15px;
+        margin: 5px;
+        border-radius: 5px;
         cursor: pointer;
-        box-shadow: 0 1px 4px rgba(163, 168, 247, 0.08);
-        transition: background 0.2s, box-shadow 0.2s;
+        font-size: 14px;
+        transition: background 0.3s;
       }
-      button:hover {
-        background: linear-gradient(90deg, #f7b955 0%, #a3a8f7 100%);
-        box-shadow: 0 2px 8px rgba(247, 185, 85, 0.13);
+      button:hover { background-color: var(--hover-color); }
+      .extra-buttons-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 15px;
+      }
+      
+      .instrucciones-extra ul {
+        padding-left: 20px;
+        margin-top: 10px;
+        font-size: 0.95em;
+        color: #555;
+      }
+      .instrucciones-extra li {
+        margin-bottom: 5px;
       }
 
-      /* Notion-style callout for info-box */
-      .info-box p {
-        margin: 0 0 8px 0;
-        font-size: 1.08em;
-        color: #37352f;
+      body.dark-mode {
+        --bg-color: #121212;
+        --text-color: #e0e0e0;
+        --card-bg: #1e1e1e;
+        --border-color: #444;
+        --primary-color: #374151;
+        --hover-color: #4b5563;
       }
+      .dark-mode .author { color: #aaa; }
+      .dark-mode th { background-color: #333; }
+      .dark-mode .correct { background-color: #064e3b !important; border-color: #059669; }
+      .dark-mode .partial { background-color: #451a03 !important; border-color: #d97706; }
+      .dark-mode .incorrect { background-color: #450a0a !important; border-color: #dc2626; }
+      .dark-mode .instrucciones-extra ul { color: #bbb; }
 
-      /* Responsive */
-      @media (max-width: 700px) {
-        body {
-          padding: 10px 0;
-          font-size: 15px;
-        }
-        .info-box,
-        .question {
-          padding: 12px 8px;
-        }
-        h1 {
-          font-size: 1.3em;
-        }
+      @media print {
+        body { background: white; color: black; max-width: 100%; padding: 0; }
+        .question { page-break-inside: avoid; border: none; box-shadow: none; padding: 0; margin-bottom: 20px; }
+        .info-box, button, #extra-buttons { display: none !important; }
       }
     </style>
   </head>
   <body>
     <h1>Test de Ejemplo Completo</h1>
-    <div class="author">Autor: Autor Desconocido | Titulación: Titulación Desconocida</div>
+    <div class="author">Autor: Ismael Sallami Moreno | Doble Grado en Ingeniería Informática y ADE</div>
+
     <div class="info-box">
-      <p></p>
+      <p>Este es un test de ejemplo que incluye todos los elementos compatibles.</p>
       
-      <button onclick="shuffleQuestions()">Desordenar preguntas</button>
-      <button onclick="showCorrectAnswers()">
-        Mostrar todas las correctas
-      </button>
-      <button onclick="resetAnswers()">Reiniciar respuestas</button>
-      <!-- <button onclick="toggleModo()">Modo oscuro</button> -->
-      <!-- <button onclick="mostrarSoloIncorrectas()">Mostrar solo incorrectas</button> -->
-      <button id="toggleIncorrectasBtn" onclick="toggleMostrarIncorrectas()">
-        Mostrar solo incorrectas
-      </button>
-      <button onclick="mostrarResumen()">Mostrar resumen</button>
-      <!-- <button onclick="mostrarEstadisticas()">Estadísticas</button> -->
-      <button onclick="activarModoExamen()">Activar modo examen</button>
-      <!-- <button onclick="descargarPDF()">Descargar en PDF</button> -->
-      <button onclick="window.print()">Imprimir o guardar como PDF</button>
-      <button onclick="imprimirSoloIncorrectas()">
-        Imprimir solo incorrectas
-      </button>
+      <div class="instrucciones-extra">
+        
+      </div>
+      
+      <button id="toggleMenuBtn" onclick="toggleMenu()">Mostrar menú de opciones</button>
+      
+      <div id="extra-buttons" class="extra-buttons-grid" style="display: none">
+        <button onclick="shuffleQuestions()">Desordenar preguntas</button>
+        <button onclick="showCorrectAnswers()">Ver soluciones</button>
+        <button onclick="resetAnswers()">Reiniciar</button>
+        <button onclick="toggleModo()" id="modoBtn">Modo oscuro</button>
+        <button onclick="toggleMostrarIncorrectas()" id="toggleIncorrectasBtn">Mostrar fallos</button>
+        <button onclick="activarModoExamen()">Modo examen</button>
+        <button onclick="window.print()">Imprimir / PDF</button>
+      </div>
     </div>
-    <div id="questions-container"><div class="question" id="q1" data-correct="1">
-<div class="enunciado"><strong>1.</strong> ¿Cuál es el resultado de la siguiente fórmula?</div>
-<ol type="a">
-<li class="opcion-bloque"><input type="checkbox" name="q1" value="0"><div><p>$$\frac{1}{3} + \frac{1}{6}$$</p></div></li>
-<li class="opcion-bloque"><input type="checkbox" name="q1" value="1"><div><p>$$\frac{1}{2}$$</p></div></li>
-<li class="opcion-bloque"><input type="checkbox" name="q1" value="2"><div><p>$$\frac{2}{3}$$</p></div></li>
-<li class="opcion-bloque"><input type="checkbox" name="q1" value="3"><div><p>$$1$$</p></div></li>
-</ol>
+
+    <div id="questions-container">
+      <div class="question" id="q1" data-correct="0">
+  <div class="enunciado"><strong>1.</strong> ¿Qué se muestra en la siguiente imagen?</div>
+  <ol type="a">
+    <li><label class="opcion-linea"><input type="checkbox" name="q1" value="0"> <img alt="GitHub Logo" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" /></label></li>
+    <li><label class="opcion-linea"><input type="checkbox" name="q1" value="1"> Un icono de Gmail</label></li>
+    <li><label class="opcion-linea"><input type="checkbox" name="q1" value="2"> Un logo de Google Drive</label></li>
+    <li><label class="opcion-linea"><input type="checkbox" name="q1" value="3"> Un sticker de Telegram</label></li>
+  </ol>
 </div>
-<div class="question" id="q2" data-correct="0">
-<div class="enunciado"><strong>2.</strong> ¿Qué se muestra en la siguiente imagen?</div>
-<ol type="a">
-<li class="opcion-bloque"><input type="checkbox" name="q2" value="0"><div><p><img alt="GitHub Logo" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" /></p></div></li>
-<li><label class="opcion-linea"><input type="checkbox" name="q2" value="1"> <p>Un icono de Gmail</p></label></li>
-<li><label class="opcion-linea"><input type="checkbox" name="q2" value="2"> <p>Un logo de Google Drive</p></label></li>
-<li><label class="opcion-linea"><input type="checkbox" name="q2" value="3"> <p>Un sticker de Telegram</p></label></li>
-</ol>
+<div class="question" id="q2" data-correct="1">
+  <div class="enunciado"><strong>2.</strong> ¿Cuál es el resultado de la siguiente fórmula?</div>
+  <ol type="a">
+    <li><label class="opcion-linea"><input type="checkbox" name="q2" value="0"> $$\frac{1}{3} + \frac{1}{6}$$</label></li>
+    <li><label class="opcion-linea"><input type="checkbox" name="q2" value="1"> $$\frac{1}{2}$$</label></li>
+    <li><label class="opcion-linea"><input type="checkbox" name="q2" value="2"> $$\frac{2}{3}$$</label></li>
+    <li><label class="opcion-linea"><input type="checkbox" name="q2" value="3"> $$1$$</label></li>
+  </ol>
 </div>
-<div class="question" id="q3" data-correct="0">
-<div class="enunciado"><strong>3.</strong> ¿Qué tabla representa correctamente Markdown?</div>
-<ol type="a">
-<li class="opcion-bloque"><input type="checkbox" name="q3" value="0"><div><table>
-<thead>
-<tr>
-<th>Lenguaje</th>
-<th>Sintaxis</th>
-<th>Ejemplo</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Markdown</td>
-<td><strong>bold</strong></td>
-<td>bold</td>
-</tr>
-<tr>
-<td>HTML</td>
-<td><b>bold</b></td>
-<td>bold</td>
-</tr>
-</tbody>
-</table></div></li>
-<li class="opcion-bloque"><input type="checkbox" name="q3" value="1"><div><table>
-<thead>
-<tr>
-<th>Tipo</th>
-<th>Código</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>HTML</td>
-<td><div></td>
-</tr>
-<tr>
-<td>CSS</td>
-<td>display</td>
-</tr>
-</tbody>
-</table></div></li>
-</ol>
+<div class="question" id="q3" data-correct="0,1">
+  <div class="enunciado"><strong>3.</strong> ¿Qué afirmaciones sobre Markdown son correctas?</div>
+  <ol type="a">
+    <li><label class="opcion-linea"><input type="checkbox" name="q3" value="0"> Permite usar <strong>negritas</strong> y <em>cursivas</em></label></li>
+    <li><label class="opcion-linea"><input type="checkbox" name="q3" value="1"> Se puede escribir <code>código</code> inline</label></li>
+    <li><label class="opcion-linea"><input type="checkbox" name="q3" value="2"> Requiere compilarse como C++</label></li>
+    <li><label class="opcion-linea"><input type="checkbox" name="q3" value="3"> No permite insertar imágenes</label></li>
+  </ol>
 </div>
 <div class="question" id="q4" data-correct="0">
-<div class="enunciado-bloque"><div class="num">4.</div><div class="texto"><p>¿Qué hace el siguiente código en Python?</p>
-<pre><code class="language-python">    print(&quot;Hola mundo&quot;)
-</code></pre></div></div>
-<ol type="a">
-<li><label class="opcion-linea"><input type="checkbox" name="q4" value="0"> <p>Imprime "Hola mundo"</p></label></li>
-<li><label class="opcion-linea"><input type="checkbox" name="q4" value="1"> <p>Lanza un error</p></label></li>
-<li><label class="opcion-linea"><input type="checkbox" name="q4" value="2"> <p>No hace nada</p></label></li>
-<li><label class="opcion-linea"><input type="checkbox" name="q4" value="3"> <p>Es un comentario</p></label></li>
-</ol>
+  <div class="enunciado"><strong>4.</strong> ¿Qué tabla representa correctamente Markdown?</div>
+  <ol type="a">
+    <li><label class="opcion-linea"><input type="checkbox" name="q4" value="0"> | Lenguaje | Sintaxis   | Ejemplo | |----------|------------|---------| | Markdown | <strong>bold</strong>   | bold    | | HTML     | <b>bold</b>| bold    |</label></li>
+    <li><label class="opcion-linea"><input type="checkbox" name="q4" value="1"> | Tipo | Código | |------|--------| | HTML | <div>  | | CSS  | display|</label></li>
+  </ol>
 </div>
-<div class="question" id="q5" data-correct="0,1">
-<div class="enunciado"><strong>5.</strong> ¿Qué afirmaciones sobre Markdown son correctas?</div>
-<ol type="a">
-<li><label class="opcion-linea"><input type="checkbox" name="q5" value="0"> <p>Permite usar <strong>negritas</strong> y <em>cursivas</em></p></label></li>
-<li><label class="opcion-linea"><input type="checkbox" name="q5" value="1"> <p>Se puede escribir <code>código</code> inline</p></label></li>
-<li><label class="opcion-linea"><input type="checkbox" name="q5" value="2"> <p>Requiere compilarse como C++</p></label></li>
-<li><label class="opcion-linea"><input type="checkbox" name="q5" value="3"> <p>No permite insertar imágenes</p></label></li>
-</ol>
+<div class="question" id="q5" data-correct="0">
+  <div class="enunciado"><strong>5.</strong> ¿Qué hace el siguiente código en Python?
+    <code>python
+    print("Hola mundo")</code></div>
+  <ol type="a">
+    <li><label class="opcion-linea"><input type="checkbox" name="q5" value="0"> Imprime "Hola mundo"</label></li>
+    <li><label class="opcion-linea"><input type="checkbox" name="q5" value="1"> Lanza un error</label></li>
+    <li><label class="opcion-linea"><input type="checkbox" name="q5" value="2"> No hace nada</label></li>
+    <li><label class="opcion-linea"><input type="checkbox" name="q5" value="3"> Es un comentario</label></li>
+  </ol>
 </div>
+<div class="question" id="q6" data-correct="0">
+  <div class="enunciado"><strong>6.</strong> <img alt="audio" src="audios/audio1.mp3" /></div>
+  <ol type="a">
+    <li><label class="opcion-linea"><input type="checkbox" name="q6" value="0"> Opción correcta</label></li>
+    <li><label class="opcion-linea"><input type="checkbox" name="q6" value="1"> Opción incorrecta</label></li>
+  </ol>
+</div>
+<div class="question" id="q7" data-correct="0">
+  <div class="enunciado"><strong>7.</strong> ¿Qué muestra este vídeo ?
+<img alt="video" src="videos/video1.mp4" /></div>
+  <ol type="a">
+    <li><label class="opcion-linea"><input type="checkbox" name="q7" value="0"> Muestra una animación</label></li>
+    <li><label class="opcion-linea"><input type="checkbox" name="q7" value="1"> Es un audio</label></li>
+    <li><label class="opcion-linea"><input type="checkbox" name="q7" value="2"> Da error</label></li>
+    <li><label class="opcion-linea"><input type="checkbox" name="q7" value="3"> Está vacío</label></li>
+  </ol>
+</div>
+<div class="question" id="q8" data-correct="2">
+  <div class="enunciado"><strong>8.</strong> Observa la siguiente imagen y tabla:
+<img alt="Diagrama" src="images/ugr-rojo.png" />
+| Protocolo | Capa OSI |
+|-----------|----------|
+| HTTP      | Aplicación |
+| TCP       | Transporte |
+¿Qué protocolo pertenece a la capa de red?</div>
+  <ol type="a">
+    <li><label class="opcion-linea"><input type="checkbox" name="q8" value="0"> HTTP</label></li>
+    <li><label class="opcion-linea"><input type="checkbox" name="q8" value="1"> TCP</label></li>
+    <li><label class="opcion-linea"><input type="checkbox" name="q8" value="2"> IP</label></li>
+    <li><label class="opcion-linea"><input type="checkbox" name="q8" value="3"> DNS</label></li>
+  </ol>
 </div>
 
+    </div>
+
     <script>
+      function toggleMenu() {
+        const menu = document.getElementById("extra-buttons");
+        const btn = document.getElementById("toggleMenuBtn");
+        if (menu.style.display === "none") {
+          menu.style.display = "flex";
+          btn.textContent = "Ocultar menú";
+        } else {
+          menu.style.display = "none";
+          btn.textContent = "Mostrar menú de opciones";
+        }
+      }
+
+      function toggleExplicacion(id) {
+        const exp = document.getElementById("exp-" + id);
+        if (!exp) return;
+        const btn = exp.previousElementSibling;
+        if (exp.style.display === "none") {
+          exp.style.display = "block";
+          if (btn) btn.textContent = "Ocultar explicación";
+        } else {
+          exp.style.display = "none";
+          if (btn) btn.textContent = "Ver explicación";
+        }
+      }
+
+      function toggleModo() {
+        document.body.classList.toggle("dark-mode");
+        const btn = document.getElementById("modoBtn");
+        btn.textContent = document.body.classList.contains("dark-mode") ? "Modo claro" : "Modo oscuro";
+      }
+
       document.querySelectorAll(".question").forEach((q) => {
         const correct = q.dataset.correct.split(",").map(Number);
         const checkboxes = q.querySelectorAll('input[type="checkbox"]');
+        
         checkboxes.forEach((cb) => {
           cb.addEventListener("change", () => {
-            const checked = Array.from(checkboxes)
-              .map((c, i) => (c.checked ? i : null))
-              .filter((i) => i !== null);
+            if (document.body.classList.contains('modo-examen')) return;
+
+            const checked = Array.from(checkboxes).map((c, i) => (c.checked ? i : null)).filter((i) => i !== null);
             q.classList.remove("correct", "partial", "incorrect");
+
+            if (checked.length === 0) return;
+
             const allCorrect = correct.every((i) => checked.includes(i));
             const onlyCorrect = checked.every((i) => correct.includes(i));
-            if (checked.length === 0) {
-              q.classList.remove("correct", "partial", "incorrect");
-            } else if (allCorrect && onlyCorrect) {
+
+            if (allCorrect && onlyCorrect) {
               q.classList.add("correct");
-            } else if (
-              checked.some((i) => correct.includes(i)) &&
-              onlyCorrect === true
-            ) {
+            } else if (checked.some((i) => correct.includes(i)) && onlyCorrect) {
               q.classList.add("partial");
             } else {
               q.classList.add("incorrect");
@@ -340,333 +382,145 @@
       function shuffleQuestions() {
         const container = document.getElementById("questions-container");
         const questions = Array.from(container.children);
+        const realQuestions = questions.filter(el => el.classList.contains('question'));
+        
+        if(document.querySelector('h2')) {
+            alert("Atención: Al desordenar con secciones activas, las preguntas se mezclarán entre todas las secciones visualmente.");
+        }
+        
         for (let i = questions.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           container.appendChild(questions[j]);
         }
-        renumberQuestions();
-      }
-
-      function renumberQuestions() {
-        const questions = document.querySelectorAll(".question");
-        questions.forEach((q, idx) => {
-          const p = q.querySelector("p");
-          p.innerHTML = p.innerHTML.replace(/^\\d+\\./, idx + 1 + ".");
-          const inputs = q.querySelectorAll("input");
-          inputs.forEach((inp) => {
-            inp.name = "q" + (idx + 1);
-          });
-        });
       }
 
       function showCorrectAnswers() {
+        if (document.body.classList.contains('modo-examen')) return;
         document.querySelectorAll(".question").forEach((q) => {
           const correct = q.dataset.correct.split(",").map(Number);
           const checkboxes = q.querySelectorAll('input[type="checkbox"]');
           checkboxes.forEach((cb, i) => {
             cb.checked = correct.includes(i);
           });
-          q.classList.remove("correct", "partial", "incorrect");
+          q.classList.remove("partial", "incorrect");
           q.classList.add("correct");
+          const exp = q.querySelector(".explicacion");
+          if (exp) {
+            exp.style.display = "block";
+            const btn = exp.previousElementSibling;
+            if (btn) btn.textContent = "Ocultar explicación";
+          }
         });
       }
 
       function resetAnswers() {
-        document.querySelectorAll(".question").forEach((q) => {
-          const checkboxes = q.querySelectorAll('input[type="checkbox"]');
-          checkboxes.forEach((cb) => (cb.checked = false));
-          q.classList.remove("correct", "partial", "incorrect");
+        document.querySelectorAll('.question').forEach(q => {
+          q.querySelectorAll('input').forEach(cb => cb.checked = false);
+          q.classList.remove('correct', 'partial', 'incorrect');
         });
+        const resumen = document.getElementById('resumen-examen');
+        if(resumen) resumen.remove();
+        document.body.classList.remove('modo-examen');
+        const btnExam = document.getElementById('btn-corregir-examen');
+        if(btnExam) btnExam.remove();
       }
 
-      function toggleMenu() {
-        const menu = document.getElementById("extra-buttons");
-        const btn = document.getElementById("toggleMenuBtn");
-
-        if (menu.style.display === "none" || menu.style.display === "") {
-          menu.style.display = "grid"; // Si usas extra-buttons-grid
-          btn.textContent = "Ocultar menú";
-        } else {
-          menu.style.display = "none";
-          btn.textContent = "Mostrar menú";
-        }
-      }
-
-      function toggleModo() {
-        const body = document.body;
-        const btn = document.getElementById("modoBtn");
-
-        body.classList.toggle("dark-mode");
-
-        if (body.classList.contains("dark-mode")) {
-          btn.textContent = "Modo claro";
-        } else {
-          btn.textContent = "Modo oscuro";
-        }
-      }
-
-      let mostrandoSoloIncorrectas = false;
-
+      let showingIncorrect = false;
       function toggleMostrarIncorrectas() {
-        const btn = document.getElementById("toggleIncorrectasBtn");
-        const preguntas = document.querySelectorAll(".question");
-
-        // Comprobar si alguna ha sido corregida
-        const algunaCorregida = Array.from(preguntas).some(
-          (q) =>
-            q.classList.contains("correct") ||
-            q.classList.contains("incorrect") ||
-            q.classList.contains("partial")
-        );
-
-        if (!algunaCorregida) {
-          alert(
-            "Primero debes corregir el test para mostrar solo las incorrectas."
-          );
-          return;
+        const btn = document.getElementById('toggleIncorrectasBtn');
+        const preguntas = document.querySelectorAll('.question');
+        
+        const hayCorregidas = Array.from(preguntas).some(q => q.classList.contains('incorrect') || q.classList.contains('correct'));
+        if(!hayCorregidas) {
+            alert("Responde y corrige algunas preguntas primero.");
+            return;
         }
 
-        if (!mostrandoSoloIncorrectas) {
-          // Oculta todas excepto incorrectas y parciales
-          preguntas.forEach((q) => {
-            if (
-              !q.classList.contains("incorrect") &&
-              !q.classList.contains("partial")
-            ) {
-              q.style.display = "none";
+        if (!showingIncorrect) {
+          preguntas.forEach(q => {
+            if (!q.classList.contains('incorrect') && !q.classList.contains('partial')) {
+              q.style.display = 'none';
             }
           });
-          btn.textContent = "Mostrar todas";
+          btn.textContent = 'Mostrar todas';
         } else {
-          // Muestra todas
-          preguntas.forEach((q) => {
-            q.style.display = "block";
-          });
-          btn.textContent = "Mostrar solo incorrectas";
+          preguntas.forEach(q => q.style.display = 'block');
+          btn.textContent = 'Mostrar fallos';
         }
-
-        mostrandoSoloIncorrectas = !mostrandoSoloIncorrectas;
-      }
-
-      function mostrarResumen() {
-        const preguntas = document.querySelectorAll(".question");
-        let correctas = 0,
-          parciales = 0,
-          incorrectas = 0;
-
-        preguntas.forEach((q) => {
-          if (q.classList.contains("correct")) correctas++;
-          else if (q.classList.contains("partial")) parciales++;
-          else if (q.classList.contains("incorrect")) incorrectas++;
-        });
-
-        alert(`Total de preguntas: ${preguntas.length}
-        ✔️ Correctas: ${correctas}
-        🟡 Parcialmente correctas: ${parciales}
-        ❌ Incorrectas: ${incorrectas}`);
-      }
-
-      function mostrarEstadisticas() {
-        const total = document.querySelectorAll(".question").length;
-        const correctas = document.querySelectorAll(".question.correct").length;
-        const parciales = document.querySelectorAll(".question.partial").length;
-        const incorrectas = document.querySelectorAll(
-          ".question.incorrect"
-        ).length;
-
-        const percent = (v) => ((v / total) * 100).toFixed(1);
-
-        const statsHTML = `
-            <div style="margin-top:10px;">
-              <strong>Total: ${total}</strong><br>
-              <div style="background:#ddd; height:20px; width:100%; border-radius:5px; overflow:hidden; margin-bottom:10px;">
-                <div style="background:#28a745; width:${percent(
-                  correctas
-                )}%; height:100%; float:left;"></div>
-                <div style="background:#ffc107; width:${percent(
-                  parciales
-                )}%; height:100%; float:left;"></div>
-                <div style="background:#dc3545; width:${percent(
-                  incorrectas
-                )}%; height:100%; float:left;"></div>
-              </div>
-              <small>✔️ ${percent(correctas)}% | 🟡 ${percent(
-          parciales
-        )}% | ❌ ${percent(incorrectas)}%</small>
-            </div>
-          `;
-
-        const container = document.createElement("div");
-        container.innerHTML = statsHTML;
-        document.body.appendChild(container);
-
-        alert("Estadíaticas mostradas al final del fichero html.");
+        showingIncorrect = !showingIncorrect;
       }
 
       function activarModoExamen() {
-        // 1. Desactiva autocorrección
-        document.querySelectorAll(".question").forEach((q) => {
-          const nuevo = q.cloneNode(true);
-          q.parentNode.replaceChild(nuevo, q);
-        });
-
-        // 2. Elimina colores previos
-        document.querySelectorAll(".question").forEach((q) => {
-          q.classList.remove("correct", "partial", "incorrect");
-        });
-
-        // 3. Oculta botones relacionados
-        const btnCorrectas = document.querySelector(
-          'button[onclick="showCorrectAnswers()"]'
-        );
-        if (btnCorrectas) btnCorrectas.style.display = "none";
-
-        // 4. Añade botón "Corregir examen" al final
-        const corregirBtn = document.createElement("button");
-        corregirBtn.textContent = "Corregir examen";
-        corregirBtn.onclick = corregirExamen;
-        corregirBtn.style.marginTop = "30px";
-        corregirBtn.style.display = "block";
-        corregirBtn.style.fontWeight = "bold";
-
-        document.getElementById("questions-container").after(corregirBtn);
-
-        alert(
-          "Modo examen activado. Haz el test y pulsa 'Corregir examen' cuando termines. El botón y los resultados salen al final del fichero html."
-        );
+        resetAnswers();
+        document.body.classList.add('modo-examen');
+        alert("Modo Examen activo. Las respuestas no se validarán hasta finalizar.");
+        
+        if(!document.getElementById('btn-corregir-examen')){
+            const btn = document.createElement('button');
+            btn.id = 'btn-corregir-examen';
+            btn.textContent = "Finalizar y Corregir Examen";
+            btn.style.display = "block";
+            btn.style.margin = "30px auto";
+            btn.style.fontSize = "1.2em";
+            btn.onclick = finalizarExamen;
+            document.getElementById('questions-container').after(btn);
+        }
       }
 
-      function corregirExamen() {
-        let total = 0,
-          contestadas = 0,
-          correctas = 0,
-          parciales = 0,
-          incorrectas = 0;
+      function finalizarExamen() {
+        let correctas = 0, incorrectas = 0, parciales = 0, sin_responder = 0;
+        const preguntas = document.querySelectorAll('.question');
+        
+        preguntas.forEach(q => {
+            const correct = q.dataset.correct.split(",").map(Number);
+            const checkboxes = Array.from(q.querySelectorAll('input[type="checkbox"]'));
+            const checkedIdx = checkboxes.map((cb, i) => cb.checked ? i : null).filter(i => i !== null);
+            
+            q.classList.remove("correct", "partial", "incorrect");
+            
+            if (checkedIdx.length === 0) {
+                sin_responder++;
+                return;
+            }
 
-        document.querySelectorAll(".question").forEach((q, idx) => {
-          total++;
-          const correct = q.dataset.correct.split(",").map(Number);
-          const checkboxes = q.querySelectorAll('input[type="checkbox"]');
-
-          const marcadas = Array.from(checkboxes)
-            .map((cb, i) => (cb.checked ? i : null))
-            .filter((i) => i !== null);
-
-          q.classList.remove("correct", "partial", "incorrect");
-
-          if (marcadas.length === 0) {
-            // No contestada
-          } else {
-            contestadas++;
-            const allCorrect = correct.every((i) => marcadas.includes(i));
-            const onlyCorrect = marcadas.every((i) => correct.includes(i));
+            const allCorrect = correct.every((i) => checkedIdx.includes(i));
+            const onlyCorrect = checkedIdx.every((i) => correct.includes(i));
 
             if (allCorrect && onlyCorrect) {
-              q.classList.add("correct");
-              correctas++;
-            } else if (
-              marcadas.some((i) => correct.includes(i)) &&
-              onlyCorrect
-            ) {
-              q.classList.add("partial");
-              parciales++;
+                q.classList.add("correct");
+                correctas++;
+            } else if (checkedIdx.some((i) => correct.includes(i)) && onlyCorrect) {
+                q.classList.add("partial");
+                parciales++;
             } else {
-              q.classList.add("incorrect");
-              incorrectas++;
+                q.classList.add("incorrect");
+                incorrectas++;
             }
-          }
         });
 
-        const noContestadas = total - contestadas;
-
-        const resumen = `
-            📋 <strong>Resumen del examen:</strong><br>
-            Total de preguntas: ${total}<br>
-            Contestadas: ${contestadas}<br>
-            No contestadas: ${noContestadas}<br><br>
-            ✔️ Correctas: ${correctas}<br>
-            🟡 Parcialmente correctas: ${parciales}<br>
-            ❌ Incorrectas: ${incorrectas}
-          `;
-
-        const divResumen = document.createElement("div");
-        divResumen.className = "info-box";
-        divResumen.innerHTML = resumen;
-
-        document.body.appendChild(divResumen);
-      }
-
-      function descargarPDF() {
-        // 1. Clonamos solo la parte visible que nos interesa (puedes ajustar a tu estructura)
-        const original = document.querySelector("body"); // o #main, .contenido, etc.
-        const clone = original.cloneNode(true);
-
-        // 2. Quitamos los botones del clon
-        clone.querySelectorAll("button").forEach((btn) => btn.remove());
-
-        // 3. Aseguramos que modo oscuro se mantenga si está activo
-        if (document.body.classList.contains("dark-mode")) {
-          clone.classList.add("dark-mode");
-        }
-
-        // 4. Creamos un contenedor oculto temporal
-        const tempContainer = document.createElement("div");
-        tempContainer.style.position = "fixed";
-        tempContainer.style.left = "-9999px";
-        tempContainer.style.top = "0";
-        tempContainer.appendChild(clone);
-        document.body.appendChild(tempContainer);
-
-        // 5. Configuración de html2pdf
-        const opt = {
-          margin: 0.5,
-          filename: "test_resuelto.pdf",
-          image: { type: "jpeg", quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true },
-          jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
-        };
-
-        // 6. Generar y limpiar
-        html2pdf()
-          .set(opt)
-          .from(clone)
-          .save()
-          .then(() => {
-            tempContainer.remove();
-          })
-          .catch((err) => {
-            alert("Error al generar el PDF: " + err.message);
-            tempContainer.remove();
-          });
-      }
-
-      function imprimirSoloIncorrectas() {
-        const preguntas = document.querySelectorAll(".question");
-        const incorrectas = Array.from(preguntas).filter((q) =>
-          q.classList.contains("incorrect")
-        );
-
-        if (incorrectas.length === 0) {
-          alert("No hay preguntas incorrectas para imprimir.");
-          return;
-        }
-
-        // Ocultar todas excepto las incorrectas
-        preguntas.forEach((q) => {
-          if (!q.classList.contains("incorrect")) {
-            q.style.display = "none";
-          }
-        });
-
-        // Espera 100ms y lanza print (asegura render en navegadores)
-        setTimeout(() => {
-          window.print();
-
-          // Restaurar visibilidad
-          preguntas.forEach((q) => {
-            q.style.display = "block";
-          });
-        }, 100);
+        const total = preguntas.length;
+        const nota = total > 0 ? ((correctas + (parciales * 0.5)) / total) * 10 : 0;
+        
+        const resumenHTML = `
+            <div id="resumen-examen" class="info-box" style="margin-top:20px; border-color: var(--primary-color);">
+                <h3>Resultados del examen</h3>
+                <p><strong>Nota: ${nota.toFixed(2)} / 10</strong></p>
+                <ul>
+                    <li>Correctas: ${correctas}</li>
+                    <li>Parciales: ${parciales}</li>
+                    <li>Incorrectas: ${incorrectas}</li>
+                    <li>Sin responder: ${sin_responder}</li>
+                </ul>
+            </div>
+        `;
+        
+        const oldResumen = document.getElementById('resumen-examen');
+        if(oldResumen) oldResumen.remove();
+        
+        document.getElementById('questions-container').insertAdjacentHTML('beforebegin', resumenHTML);
+        document.body.classList.remove('modo-examen');
+        document.getElementById('btn-corregir-examen').remove();
+        window.scrollTo(0,0);
       }
     </script>
   </body>

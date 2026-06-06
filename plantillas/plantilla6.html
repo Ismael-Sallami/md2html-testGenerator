@@ -89,11 +89,12 @@
         border: none;
         border-bottom: 1px dashed var(--rule);
         border-radius: 0;
-        padding: 24px 4px;
+        padding: 24px 40px 24px 4px;
         margin-bottom: 0;
         box-shadow: none;
         transition: background 0.2s;
         overflow-wrap: break-word;
+        position: relative;
       }
       .question:hover {
         transform: none;
@@ -101,9 +102,17 @@
       }
       .question:last-child { border-bottom: none; }
 
-      .correct { border-left: 3px solid #2f7d32; background-color: rgba(47,125,50,0.07); padding-left: 14px; }
-      .partial { border-left: 3px solid #b8860b; background-color: rgba(184,134,11,0.08); padding-left: 14px; }
-      .incorrect { border-left: 3px solid #a11; background-color: rgba(170,17,17,0.06); padding-left: 14px; }
+      .correct   { border-left: 4px solid #2f7d32; background-color: #e3efe0; padding-left: 14px; }
+      .partial   { border-left: 4px solid #b8860b; background-color: #f4ead0; padding-left: 14px; }
+      .incorrect { border-left: 4px solid #a4161a; background-color: #f3dcd8; padding-left: 14px; }
+      .correct::before, .partial::before, .incorrect::before {
+        position: absolute; top: 22px; right: 14px;
+        font-family: "Playfair Display", Georgia, serif;
+        font-weight: 700; font-size: 1.2rem; line-height: 1;
+      }
+      .correct::before   { content: "\2713"; color: #2f7d32; }
+      .incorrect::before { content: "\2717"; color: #a4161a; }
+      .partial::before   { content: "!"; color: #8a6508; }
 
       .enunciado { margin-bottom: 15px; }
       .enunciado strong:first-child {
@@ -230,9 +239,12 @@
       .dark-mode h1 { border-bottom-color: var(--text-color); }
       .dark-mode .author { color: var(--muted); }
       .dark-mode th { background-color: rgba(217,128,80,0.12); }
-      .dark-mode .correct { background-color: rgba(47,125,50,0.18); border-left-color: #4caf50; }
-      .dark-mode .partial { background-color: rgba(184,134,11,0.18); border-left-color: #d4a017; }
-      .dark-mode .incorrect { background-color: rgba(170,17,17,0.18); border-left-color: #e05555; }
+      .dark-mode .correct { background-color: rgba(47,125,50,0.30); border-left-color: #4caf50; }
+      .dark-mode .partial { background-color: rgba(184,134,11,0.30); border-left-color: #d4a017; }
+      .dark-mode .incorrect { background-color: rgba(170,17,17,0.32); border-left-color: #e05555; }
+      .dark-mode .correct::before { color: #6bdc8e; }
+      .dark-mode .incorrect::before { color: #ff8a8a; }
+      .dark-mode .partial::before { color: #e6c14d; }
 
       @media print {
         body { background: white; color: black; max-width: 100%; padding: 0; font-size: 13px; }

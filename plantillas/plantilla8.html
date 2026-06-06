@@ -26,12 +26,12 @@
 
     <style>
       :root {
-        --bg-color: #eef2f9;
-        --text-color: #333;
-        --card-bg: #fff;
-        --border-color: #ddd;
-        --primary-color: #1d4ed8;
-        --hover-color: #1e3a8a;
+        --bg-color: #ffffff;
+        --text-color: #111111;
+        --card-bg: #ffffff;
+        --border-color: #111111;
+        --primary-color: #111111;
+        --hover-color: #333333;
       }
 
       body {
@@ -82,16 +82,16 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
 
-      .correct   { border-color: #1e7e34; background-color: #cdeccd; }
-      .partial   { border-color: #c79100; background-color: #fff0bf; }
-      .incorrect { border-color: #c12a37; background-color: #f7c9ce; }
+      .correct   { border: 2px solid #111 !important; background-color: #ffffff; }
+      .partial   { border: 2px dashed #555 !important; background-color: #f4f4f4; }
+      .incorrect { border: 2px dotted #111 !important; background-color: #ececec; }
       .correct::before, .partial::before, .incorrect::before {
         position: absolute; top: 12px; right: 14px;
-        font-weight: 700; font-size: 1.15rem; line-height: 1;
+        font-weight: 700; font-size: 1.2rem; line-height: 1; color: #111;
       }
-      .correct::before   { content: "\2713"; color: #1e7e34; }
-      .incorrect::before { content: "\2717"; color: #c12a37; }
-      .partial::before   { content: "!"; color: #9a6b00; }
+      .correct::before   { content: "\2713"; }
+      .incorrect::before { content: "\2717"; }
+      .partial::before   { content: "!"; }
 
       .enunciado { margin-bottom: 15px; }
       .enunciado-bloque { display: flex; gap: 10px; margin-bottom: 15px; }
@@ -147,21 +147,21 @@
         margin-top: 12px;
         padding: 12px 16px;
         border-left: 4px solid var(--primary-color);
-        background-color: rgba(29, 78, 216, 0.07);
+        background-color: rgba(142, 36, 52, 0.07);
         border-radius: 4px;
         font-size: 0.96em;
       }
       .dark-mode .btn-explicacion {
-        color: #93c5fd;
-        border-color: #93c5fd;
+        color: #e3a7af;
+        border-color: #e3a7af;
       }
       .dark-mode .btn-explicacion:hover {
-        background-color: #93c5fd;
+        background-color: #e3a7af;
         color: #121212;
       }
       .dark-mode .explicacion {
         background-color: rgba(147, 197, 253, 0.1);
-        border-left-color: #93c5fd;
+        border-left-color: #e3a7af;
       }
 
       .info-box {
