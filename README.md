@@ -214,7 +214,7 @@ Una vez instalado y seguido todos los pasos expuestos en la parte de [Como funci
 Clonamos el repositorio:
 
 ```bash
-git clone https://github.com/Ismael-Sallami/md2html.git
+git clone https://github.com/Ismael-Sallami/md2html-testGenerator.git
 ```
 
 Podemos optar por borrar el anterior entorno virtual y crear uno instalando el módulo de Markdown (opción recomendada):
